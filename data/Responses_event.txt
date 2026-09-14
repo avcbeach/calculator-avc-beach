@@ -1,0 +1,813 @@
+<Responses>
+  <BeachTournament Actions="1" BuyTicketsUrl="" Code="MAG2026" CountryCode="JP" CountryName="Japan" Deadline="" DefaultCity="" DefaultLocalTimeOffset="0" DefaultMatchFormat="4" DefaultTimeZone="0" DefaultVenue="" DispatchMethod="2" DispatchStatus="0" EarningsCurrencyCode="" EndDateFederationQuota="" EndDateMainDraw="2026-10-03" EndDateQualification="" EntryPointsBaseDate="5" EntryPointsDayOffset="-21" EntryPointsTemplateNo="0" EventAuxiliaryPersons="" EventLogos="" FederationCode="" Gender="0" IsFreeEntrance="0" IsVisManaged="0" Logos="" MatchPointsMethod="2" MaxRegisterFederation="0" MaxRegisterHost="0" MaxReserveTeams="0" MaxTeamsDispatchFederation="2" MaxTeamsDispatchHost="2" MaxTeamsFederation="2" MaxTeamsHost="2" MaxTeamsMainDrawFederation="2" MaxTeamsMainDrawHost="2" MinConfederationTeams="0" MinTeamsDispatchHost="2" Name="20th Asian Games Aichi-Nagoya" NbTeamsFromQualification="8" NbTeamsMainDraw="32" NbTeamsQualification="64" NbUploads="0" NbWildCards="0" NewNo="9036" No="9552" NoEvent="" NoTemplateEarnedPoints="392" NoTemplatePrizeMoney="" OrganizerCode="AVC" OrganizerType="2" Parameters="" PreliminaryInquiryMainDraw="" PreliminaryInquiryQualification="" RankingInformation="&lt;RankingInformation Method=&quot;BasedOnTeams&quot; /&gt;" Season="2026" SeedPointsBaseDate="5" SeedPointsDayOffset="0" SeedPointsTemplateNo="0" StartDate="2026-09-19" StartDateFederationQuota="" StartDateMainDraw="2026-09-19" StartDateQualification="" Status="1" TechnicalEntryPointsTemplateNo="0" TechnicalSeedPointsTemplateNo="0" Title="20th Asian Games Aichi-Nagoya" Type="44" Version="112573" WebSite="" />
+  <BeachMatches NbItems="0" Version="52083525"></BeachMatches>
+  <BeachRounds NbItems="0" />
+  <BeachTeams NbItems="32" Version="4333892">
+    <BeachTeam EntryPoints="" FederationCode="BAN" FederationRankingPoints="" No="3174812" NoPlayer1="204501" NoPlayer2="198206" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="RATUL/Rakesh" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4333883">
+      <Player1 No="204501" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="RATUL" FirstName="RATUL" LastName="AHMED" Version="1794168">
+        <Courses NbItems="0"></Courses>
+      </Player1>
+      <Player2 No="198206" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Rakesh" FirstName="Md Ali Al Murammar Rakesh" LastName="Shaikat" Version="1822648">
+        <Courses NbItems="0"></Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="CHN" FederationRankingPoints="" No="3174813" NoPlayer1="137269" NoPlayer2="146898" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Wu Jiaxin/Ch. W. Zhou" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4248077">
+      <Player1 No="137269" AntiDopingCourseCompleteDate="2026-07-15" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="2019-10-18T00:00:00Z" EligibilityVerifiedBy="1" TeamName="Wu Jiaxin" FirstName="Jiaxin" LastName="Wu" Version="1795227">
+        <Courses NbItems="4">
+          <CourseAttender No="11694" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="37876" Version="797896">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="38165" Version="798185">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="119474" Version="879605">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11071" Version="129958" />
+        <EligibilityVerifyUser Username="System" No="1" Version="1" />
+      </Player1>
+      <Player2 No="146898" AntiDopingCourseCompleteDate="2026-07-15" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="2022-06-21T16:05:21Z" EligibilityVerifiedBy="51926" TeamName="Ch. W. Zhou" FirstName="Chaowei" LastName="Zhou" Version="1795228">
+        <Courses NbItems="4">
+          <CourseAttender No="15852" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="38008" Version="798028">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="38144" Version="798164">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="119511" Version="879642">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11450" Version="130330" />
+        <EligibilityVerifyUser Username="brendan.chiang" No="51926" Version="178198340" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="CHN" FederationRankingPoints="" No="3174814" NoPlayer1="201983" NoPlayer2="151292" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="DU Hongjun/Wang Y. W." NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4248077">
+      <Player1 No="201983" AntiDopingCourseCompleteDate="2026-07-15" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="2025-10-08T03:08:19Z" EligibilityVerifiedBy="22646" TeamName="DU Hongjun" FirstName="Hongjun" LastName="Du" Version="1795229">
+        <Courses NbItems="4">
+          <CourseAttender No="57465" Version="817538">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="57468" Version="817541">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="119448" Version="879579">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="119452" Version="879583">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13481" Version="144223" />
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player1>
+      <Player2 No="151292" AntiDopingCourseCompleteDate="2026-07-15" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="2023-08-15T13:24:54Z" EligibilityVerifiedBy="22646" TeamName="Wang Y. W." FirstName="Yanwei" LastName="Wang" Version="1795216">
+        <Courses NbItems="4">
+          <CourseAttender No="17517" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="37902" Version="797922">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="38187" Version="798208">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="119516" Version="879647">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11573" Version="130452" />
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="HKG" FederationRankingPoints="" No="3174815" NoPlayer1="192605" NoPlayer2="199729" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="C. H. Lee/L.F. Lee" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4327379">
+      <Player1 No="192605" AntiDopingCourseCompleteDate="2025-02-25" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="C. H. Lee" FirstName="Cheuk Hei" LastName="Lee" Version="1837210">
+        <Courses NbItems="1">
+          <CourseAttender No="79180" Version="839306">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="14224" Version="146330" />
+      </Player1>
+      <Player2 No="199729" AntiDopingCourseCompleteDate="2023-03-15" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="L.F. Lee" FirstName="Lit Fung" LastName="Lee" Version="1836199">
+        <Courses NbItems="2">
+          <CourseAttender No="52257" Version="812316">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="52258" Version="812317">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="14206" Version="146280" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="HKG" FederationRankingPoints="" No="3174816" NoPlayer1="138134" NoPlayer2="134478" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Chong/P.L. WONG" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4327376">
+      <Player1 No="138134" AntiDopingCourseCompleteDate="2026-04-16" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Chong" FirstName="Kei Loi" LastName="Chong" Version="1837205">
+        <Courses NbItems="3">
+          <CourseAttender No="105151" Version="865271">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="106378" Version="866499">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="106395" Version="866516">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="14222" Version="146331" />
+      </Player1>
+      <Player2 No="134478" AntiDopingCourseCompleteDate="2026-04-16" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="P.L. WONG" FirstName="Pui Lam" LastName="Wong" Version="1716677">
+        <Courses NbItems="4">
+          <CourseAttender No="11095" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="106377" Version="866498">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="106379" Version="866500">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="106403" Version="866524">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="10966" Version="129853" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="INA" FederationRankingPoints="" No="3174817" NoPlayer1="167130" NoPlayer2="199950" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Bintang/Sofyan" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242348">
+      <Player1 No="167130" AntiDopingCourseCompleteDate="2025-06-12" BeachAgreementDate="2025-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2025-06-19T12:20:56Z" EligibilityVerifiedBy="22646" TeamName="Bintang" FirstName="Bintang" LastName="Akbar" Version="1634658">
+        <Courses NbItems="3">
+          <CourseAttender No="21717" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="83628" Version="843751">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="83631" Version="843754">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13735" Version="146332" />
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player1>
+      <Player2 No="199950" AntiDopingCourseCompleteDate="2025-06-12" BeachAgreementDate="2025-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2025-06-19T12:21:56Z" EligibilityVerifiedBy="22646" TeamName="Sofyan" FirstName="Sofyan Rachman" LastName="Efendi" Version="1742172">
+        <Courses NbItems="2">
+          <CourseAttender No="52307" Version="812366">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="83644" Version="843767">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13495" Version="146316" />
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="INA" FederationRankingPoints="" No="3174818" NoPlayer1="229191" NoPlayer2="217279" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Fairuz/Imam" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242349">
+      <Player1 No="229191" AntiDopingCourseCompleteDate="2026-04-11" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Fairuz" FirstName="Fairuz" LastName="Bayhaqli" Version="1698094">
+        <Courses NbItems="2">
+          <CourseAttender No="105716" Version="865836">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="105721" Version="865841">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="217279" AntiDopingCourseCompleteDate="2025-06-25" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="2025-07-17T12:12:48Z" EligibilityVerifiedBy="70698" TeamName="Imam" FirstName="Imam Ahmad" LastName="Faisal" Version="1712905">
+        <Courses NbItems="2">
+          <CourseAttender No="84927" Version="845048">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="84935" Version="845056">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <EligibilityVerifyUser Username="thoma.liechti" No="70698" Version="178843050" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="IRI" FederationRankingPoints="" No="3174819" NoPlayer1="150606" NoPlayer2="156906" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="A. Pourasgari/A.Aghajani" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242350">
+      <Player1 No="150606" AntiDopingCourseCompleteDate="2026-06-01" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2025-05-22T11:18:09Z" EligibilityVerifiedBy="22646" TeamName="A. Pourasgari" FirstName="Abbas" LastName="Pourasgari" Version="1754447">
+        <Courses NbItems="4">
+          <CourseAttender No="17217" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="17218" Version="1">
+            <Course No="4" CertificateValidUntil="2015-12-31" Type="2" Version="9" />
+          </CourseAttender>
+          <CourseAttender No="112410" Version="872531">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="112416" Version="872537">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player1>
+      <Player2 No="156906" AntiDopingCourseCompleteDate="2026-06-01" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="A.Aghajani" FirstName="Alireza" LastName="Aghajanighasab" Version="1754446">
+        <Courses NbItems="3">
+          <CourseAttender No="18933" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="112400" Version="872521">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="112418" Version="872539">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="IRI" FederationRankingPoints="" No="3174820" NoPlayer1="170459" NoPlayer2="210148" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Abolhassan/GhalehNovi" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4326779">
+      <Player1 No="170459" AntiDopingCourseCompleteDate="2024-09-17" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2024-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Abolhassan" FirstName="Abolhassan" LastName="Khakizadeh" Version="1754442">
+        <Courses NbItems="4">
+          <CourseAttender No="5844" Version="5867">
+            <Course No="1" CertificateValidUntil="2021-12-31" Type="1" Version="5" />
+          </CourseAttender>
+          <CourseAttender No="22896" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="74376" Version="834494">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="74778" Version="834899">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="210148" AntiDopingCourseCompleteDate="2024-07-13" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2024-12-31" EligibilityVerifiedAt="2025-09-26T14:33:06Z" EligibilityVerifiedBy="51926" TeamName="GhalehNovi" FirstName="AmirAli" LastName="GhalehNovi" Version="1836238">
+        <Courses NbItems="2">
+          <CourseAttender No="72179" Version="832294">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="72188" Version="832303">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="14207" Version="146282" />
+        <EligibilityVerifyUser Username="brendan.chiang" No="51926" Version="178198340" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="JPN" FederationRankingPoints="" No="3174821" NoPlayer1="189719" NoPlayer2="163564" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Kurosawa/Mizumachi" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242352">
+      <Player1 No="189719" AntiDopingCourseCompleteDate="2026-06-05" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Kurosawa" FirstName="Kota" LastName="Kurosawa" Version="1751978">
+        <Courses NbItems="3">
+          <CourseAttender No="42067" Version="802111">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="42068" Version="802112">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="113210" Version="873332">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="163564" AntiDopingCourseCompleteDate="2026-04-09" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Mizumachi" FirstName="Taito" LastName="Mizumachi" Version="1753907">
+        <Courses NbItems="4">
+          <CourseAttender No="20760" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="105355" Version="865475">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="105363" Version="865483">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="105365" Version="865485">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="JPN" FederationRankingPoints="" No="3174822" NoPlayer1="162769" NoPlayer2="201061" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Gottsu/Tachiya" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4331816">
+      <Player1 No="162769" AntiDopingCourseCompleteDate="2026-09-08" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2024-12-31" EligibilityVerifiedAt="2022-05-20T13:31:30Z" EligibilityVerifiedBy="51926" TeamName="Gottsu" FirstName="Yusuke " LastName="Ishijima" Version="1838556">
+        <Courses NbItems="5">
+          <CourseAttender No="1356" Version="1353">
+            <Course No="1" CertificateValidUntil="2021-12-31" Type="1" Version="5" />
+          </CourseAttender>
+          <CourseAttender No="20395" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="59542" Version="819626">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="69328" Version="829448">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="126322" Version="886463">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11733" Version="130612" />
+        <EligibilityVerifyUser Username="brendan.chiang" No="51926" Version="178198340" />
+      </Player1>
+      <Player2 No="201061" AntiDopingCourseCompleteDate="2026-09-07" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Tachiya" FirstName="Juntaro" LastName="Tachiya" Version="1839788">
+        <Courses NbItems="3">
+          <CourseAttender No="88330" Version="848442">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="88334" Version="848446">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="126238" Version="886379">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="KAZ" FederationRankingPoints="" No="3174823" NoPlayer1="122478" NoPlayer2="140369" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Bogatu/Gurin" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4327092">
+      <Player1 No="122478" AntiDopingCourseCompleteDate="2025-03-28" BeachAgreementDate="2018-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2022-05-20T13:33:08Z" EligibilityVerifiedBy="51926" TeamName="Bogatu" FirstName="Sergey" LastName="Bogatu" Version="1484960">
+        <Courses NbItems="3">
+          <CourseAttender No="52261" Version="812320">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="79774" Version="839900">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="79775" Version="839901">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="10751" Version="146339" />
+        <EligibilityVerifyUser Username="brendan.chiang" No="51926" Version="178198340" />
+      </Player1>
+      <Player2 No="140369" AntiDopingCourseCompleteDate="2025-03-28" BeachAgreementDate="2016-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Gurin" FirstName="Kirill" LastName="Gurin" Version="1836859">
+        <Courses NbItems="3">
+          <CourseAttender No="12416" Version="1">
+            <Course No="4" CertificateValidUntil="2015-12-31" Type="2" Version="9" />
+          </CourseAttender>
+          <CourseAttender No="52263" Version="812322">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="79779" Version="839905">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="11186" Version="146297" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="KAZ" FederationRankingPoints="" No="3174824" NoPlayer1="150287" NoPlayer2="120454" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Mokhammad/Yakovlev" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4327861">
+      <Player1 No="150287" AntiDopingCourseCompleteDate="2025-03-28" BeachAgreementDate="2020-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Mokhammad" FirstName="Abdulmajid" LastName="Mokhammad" Version="1837653">
+        <Courses NbItems="3">
+          <CourseAttender No="17122" Version="1">
+            <Course No="4" CertificateValidUntil="2015-12-31" Type="2" Version="9" />
+          </CourseAttender>
+          <CourseAttender No="79787" Version="839913">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="79788" Version="839914">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="14227" Version="146338" />
+      </Player1>
+      <Player2 No="120454" AntiDopingCourseCompleteDate="2025-03-28" BeachAgreementDate="2018-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2022-05-20T13:33:45Z" EligibilityVerifiedBy="51926" TeamName="Yakovlev" FirstName="Dmitriy" LastName="Yakovlev" Version="1484959">
+        <Courses NbItems="2">
+          <CourseAttender No="52267" Version="812326">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="79794" Version="839920">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="10631" Version="146293" />
+        <EligibilityVerifyUser Username="brendan.chiang" No="51926" Version="178198340" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="KOR" FederationRankingPoints="" No="3174825" NoPlayer1="188538" NoPlayer2="223431" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Inho/Minsu" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242356">
+      <Player1 No="188538" AntiDopingCourseCompleteDate="2022-04-11" BeachAgreementDate="2023-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2023-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Inho" FirstName="Inho" LastName="Bae" Version="1533825">
+        <Courses NbItems="2">
+          <CourseAttender No="33870" Version="793877">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="33871" Version="793878">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="223431" AntiDopingCourseCompleteDate="2025-06-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Minsu" FirstName="Minsu" LastName="YEO" Version="1528181">
+        <Courses NbItems="2">
+          <CourseAttender No="82882" Version="843006">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="82902" Version="843028">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="KOR" FederationRankingPoints="" No="3174826" NoPlayer1="233115" NoPlayer2="223428" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Sangbin/Jeongtaek" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242357">
+      <Player1 No="233115" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Sangbin" FirstName="Sangbin" LastName="BAE" Version="1658753">
+        <Courses NbItems="0"></Courses>
+      </Player1>
+      <Player2 No="223428" AntiDopingCourseCompleteDate="2025-06-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Jeongtaek" FirstName="Jeongtaek" LastName="OH" Version="1528166">
+        <Courses NbItems="2">
+          <CourseAttender No="82755" Version="842879">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="82899" Version="843025">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="MDV" FederationRankingPoints="" No="3174827" NoPlayer1="155248" NoPlayer2="135217" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Adam/Ismail" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242358">
+      <Player1 No="155248" AntiDopingCourseCompleteDate="2024-10-13" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Adam" FirstName="Adam" LastName="Naseem" Version="1575399">
+        <Courses NbItems="1">
+          <CourseAttender No="75627" Version="835750">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="135217" AntiDopingCourseCompleteDate="2024-10-11" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Ismail" FirstName="Sajid" LastName="Ismail" Version="1446746">
+        <Courses NbItems="3">
+          <CourseAttender No="9506" Version="792893">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="11184" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="75608" Version="835731">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="MGL" FederationRankingPoints="" No="3174828" NoPlayer1="200382" NoPlayer2="230712" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Amar/Shijir-Erdene.B" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4333885">
+      <Player1 No="200382" AntiDopingCourseCompleteDate="2026-05-29" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Amar" FirstName="Amar" LastName="Batmunkh" Version="1806665">
+        <Courses NbItems="3">
+          <CourseAttender No="112084" Version="872205">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+          <CourseAttender No="112092" Version="872213">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="112095" Version="872216">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="230712" AntiDopingCourseCompleteDate="2025-11-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Shijir-Erdene.B" FirstName="Shijir-Erdene" LastName="Bat-Enkh" Version="1837676">
+        <Courses NbItems="1">
+          <CourseAttender No="91952" Version="852069">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="MGL" FederationRankingPoints="" No="3174829" NoPlayer1="229660" NoPlayer2="230712" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Tergel/Shijir-Erdene.B" NoShirt1="1" NoShirt2="2" Status="1" TechnicalPoints1="" TechnicalPoints2="" Version="4333886">
+      <Player1 No="229660" AntiDopingCourseCompleteDate="2025-10-16" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Tergel" FirstName="Tergel" LastName="Badar-Uugan" Version="1793958">
+        <Courses NbItems="3">
+          <CourseAttender No="90480" Version="850597">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="90488" Version="850605">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="99327" Version="859443">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="230712" AntiDopingCourseCompleteDate="2025-11-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Shijir-Erdene.B" FirstName="Shijir-Erdene" LastName="Bat-Enkh" Version="1837676">
+        <Courses NbItems="1">
+          <CourseAttender No="91952" Version="852069">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="OMA" FederationRankingPoints="" No="3174830" NoPlayer1="152854" NoPlayer2="167064" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Mazin/Hood" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242361">
+      <Player1 No="152854" AntiDopingCourseCompleteDate="2018-01-24" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2019-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Mazin" FirstName="Mazin" LastName="Alhashmi" Version="1381854">
+        <Courses NbItems="1">
+          <CourseAttender No="17855" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11595" Version="133526" />
+      </Player1>
+      <Player2 No="167064" AntiDopingCourseCompleteDate="2022-04-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Hood" FirstName="Hood" LastName="Al Jalaboubi" Version="1496025">
+        <Courses NbItems="2">
+          <CourseAttender No="21706" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="33344" Version="793351">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="12590" Version="131456" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="OMA" FederationRankingPoints="" No="3174831" NoPlayer1="215125" NoPlayer2="138628" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Yousef Al Abri/Ahmed" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4326502">
+      <Player1 No="215125" AntiDopingCourseCompleteDate="2026-09-02" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="2026-07-21T15:16:06Z" EligibilityVerifiedBy="" TeamName="Yousef Al Abri" FirstName="Yousef Saleh Almur Humaid" LastName="Al Abri" Version="1835853">
+        <Courses NbItems="4">
+          <CourseAttender No="63133" Version="880348">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="125899" Version="886040">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="125900" Version="886041">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="125901" Version="886042">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="138628" AntiDopingCourseCompleteDate="2018-01-24" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2012-03-01" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Ahmed" FirstName="Ahmed" LastName="Alhousni" Version="1351059">
+        <Courses NbItems="1">
+          <CourseAttender No="11912" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="11103" Version="134066" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="QAT" FederationRankingPoints="" No="3174832" NoPlayer1="146488" NoPlayer2="146481" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Cherif/Ahmed" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4256330">
+      <Player1 No="146488" AntiDopingCourseCompleteDate="2024-06-21" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2019-10-18T00:00:00Z" EligibilityVerifiedBy="1" TeamName="Cherif" FirstName="Cherif" LastName="Younousse" Version="1796945">
+        <Courses NbItems="5">
+          <CourseAttender No="3017" Version="3015">
+            <Course No="1" CertificateValidUntil="2021-12-31" Type="1" Version="5" />
+          </CourseAttender>
+          <CourseAttender No="15561" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="15562" Version="1">
+            <Course No="4" CertificateValidUntil="2015-12-31" Type="2" Version="9" />
+          </CourseAttender>
+          <CourseAttender No="70591" Version="830710">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="70592" Version="830711">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="11850" Version="133627" />
+        <EligibilityVerifyUser Username="System" No="1" Version="1" />
+      </Player1>
+      <Player2 No="146481" AntiDopingCourseCompleteDate="2015-10-19" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="2019-10-18T00:00:00Z" EligibilityVerifiedBy="1" TeamName="Ahmed" FirstName="Ahmed" LastName="Tijan" Version="1662416">
+        <Courses NbItems="2">
+          <CourseAttender No="15555" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="15556" Version="1">
+            <Course No="4" CertificateValidUntil="2015-12-31" Type="2" Version="9" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="11849" Version="133626" />
+        <EligibilityVerifyUser Username="System" No="1" Version="1" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="QAT" FederationRankingPoints="" No="3174833" NoPlayer1="222229" NoPlayer2="159909" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="M.Alkeer/M. Ihab" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4331000">
+      <Player1 No="222229" AntiDopingCourseCompleteDate="2026-08-15" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="2026-04-30T08:45:50Z" EligibilityVerifiedBy="108296" TeamName="M.Alkeer" FirstName="Musa Alkeer" LastName="Mou" Version="1839596">
+        <Courses NbItems="3">
+          <CourseAttender No="87062" Version="847171">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="123549" Version="883690">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="123550" Version="883691">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="14229" Version="146348" />
+        <EligibilityVerifyUser Username="euzhann.lerandy" No="108296" Version="178851658" />
+      </Player1>
+      <Player2 No="159909" AntiDopingCourseCompleteDate="2022-03-24" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="M. Ihab" FirstName="Mohamed Ihab" LastName="Zaki" Version="1413621">
+        <Courses NbItems="1">
+          <CourseAttender No="32345" Version="792344">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="2" No="12222" Version="133686" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="SRI" FederationRankingPoints="" No="3174834" NoPlayer1="185180" NoPlayer2="161936" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Sadun Madusanka/Dileepa" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242365">
+      <Player1 No="185180" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Sadun Madusanka" FirstName="Sadun Madusanka" LastName="Fernando" Version="1714287">
+        <Courses NbItems="0"></Courses>
+      </Player1>
+      <Player2 No="161936" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Dileepa" FirstName="Dileepa" LastName="Senarathna" Version="1467354">
+        <Courses NbItems="0"></Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="THA" FederationRankingPoints="" No="3174835" NoPlayer1="177866" NoPlayer2="167226" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="M.Wachirawit/T.Pithak" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242366">
+      <Player1 No="177866" AntiDopingCourseCompleteDate="2026-06-21" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="M.Wachirawit" FirstName="Wachirawit" LastName="Muadpha" Version="1777544">
+        <Courses NbItems="4">
+          <CourseAttender No="24631" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="38664" Version="798686">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="53046" Version="813105">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="115187" Version="875309">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="167226" AntiDopingCourseCompleteDate="2026-06-21" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="T.Pithak" FirstName="Pithak" LastName="Tipjan" Version="1777542">
+        <Courses NbItems="5">
+          <CourseAttender No="21732" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="38663" Version="798685">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="52576" Version="812635">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="56417" Version="816486">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="115186" Version="875308">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="12755" Version="131619" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="THA" FederationRankingPoints="" No="3174836" NoPlayer1="177865" NoPlayer2="172216" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Netitorn/T. Poravid" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242367">
+      <Player1 No="177865" AntiDopingCourseCompleteDate="2026-06-21" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Netitorn" FirstName="Netitorn" LastName="Muneekul" Version="1777541">
+        <Courses NbItems="3">
+          <CourseAttender No="26775" Version="786766">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="79250" Version="839376">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="115188" Version="875310">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="172216" AntiDopingCourseCompleteDate="2026-06-21" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="T. Poravid" FirstName="Poravid" LastName="Taovato" Version="1777543">
+        <Courses NbItems="4">
+          <CourseAttender No="23202" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="38662" Version="798684">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="52578" Version="812637">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="115180" Version="875302">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="12756" Version="131620" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="TLS" FederationRankingPoints="" No="3174837" NoPlayer1="236694" NoPlayer2="200626" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Fernandes Xavier/Valente" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242368">
+      <Player1 No="236694" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Fernandes Xavier" FirstName="Joninho" LastName="Fernandes Xavier" Version="1687374">
+        <Courses NbItems="0"></Courses>
+      </Player1>
+      <Player2 No="200626" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Valente" FirstName="Joel Savio" LastName="Valente" Version="1687362">
+        <Courses NbItems="0"></Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="UZB" FederationRankingPoints="" No="3174838" NoPlayer1="220291" NoPlayer2="204693" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Dauilbaev/TOLIBAEV" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242369">
+      <Player1 No="220291" AntiDopingCourseCompleteDate="2025-09-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Dauilbaev" FirstName="Azamat" LastName="Dauilbaev" Version="1657254">
+        <Courses NbItems="1">
+          <CourseAttender No="88629" Version="848740">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="204693" AntiDopingCourseCompleteDate="2025-09-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="TOLIBAEV" FirstName="DILSHODBEK" LastName="TOLIBAEV" Version="1657252">
+        <Courses NbItems="1">
+          <CourseAttender No="88630" Version="848741">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="UZB" FederationRankingPoints="" No="3174839" NoPlayer1="216597" NoPlayer2="211355" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Nodirjon/MUSTAFOEV" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4266957">
+      <Player1 No="216597" AntiDopingCourseCompleteDate="2026-07-29" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="2025-09-16T12:57:46Z" EligibilityVerifiedBy="22646" TeamName="Nodirjon" FirstName="Nodirjon" LastName="Alekseev" Version="1799907">
+        <Courses NbItems="3">
+          <CourseAttender No="88627" Version="848738">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="88628" Version="848739">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="120993" Version="881126">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player1>
+      <Player2 No="211355" AntiDopingCourseCompleteDate="2025-09-04" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="MUSTAFOEV" FirstName="MUSTAFOEV" LastName="GOLIBJON" Version="1601766">
+        <Courses NbItems="2">
+          <CourseAttender No="88625" Version="848736">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="88626" Version="848737">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+        </Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="VIE" FederationRankingPoints="" No="3174840" NoPlayer1="209997" NoPlayer2="201713" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="L.H. Y/N.A.TUAN" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242371">
+      <Player1 No="209997" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="L.H. Y" FirstName="Hoang Y" LastName="Le" Version="1413621">
+        <Courses NbItems="0"></Courses>
+      </Player1>
+      <Player2 No="201713" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="N.A.TUAN" FirstName="Anh Tuan" LastName="Nguyen" Version="1413621">
+        <Courses NbItems="0"></Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="VIE" FederationRankingPoints="" No="3174841" NoPlayer1="161379" NoPlayer2="231324" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Nguyen Lam Toi/T,V,VIET" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4242372">
+      <Player1 No="161379" AntiDopingCourseCompleteDate="2022-03-10" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="2026-06-05T14:04:11Z" EligibilityVerifiedBy="" TeamName="Nguyen Lam Toi" FirstName="Lam Toi" LastName="Nguyen" Version="1752366">
+        <Courses NbItems="2">
+          <CourseAttender No="31835" Version="791834">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="31840" Version="791839">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+        </Courses>
+      </Player1>
+      <Player2 No="231324" AntiDopingCourseCompleteDate="" BeachAgreementDate="" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="T,V,VIET" FirstName="VAN VIET" LastName="TRAN" Version="1771131">
+        <Courses NbItems="0"></Courses>
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="PHI" FederationRankingPoints="" No="3177954" NoPlayer1="168060" NoPlayer2="216832" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Abdilla/Francisco" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4333887">
+      <Player1 No="168060" AntiDopingCourseCompleteDate="2026-02-26" BeachAgreementDate="2024-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2024-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Abdilla" FirstName="Alnakran " LastName="Abdilla" Version="1662538">
+        <Courses NbItems="4">
+          <CourseAttender No="21970" Version="1">
+            <Course No="5" CertificateValidUntil="2021-12-31" Type="2" Version="11" />
+          </CourseAttender>
+          <CourseAttender No="31109" Version="791108">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="69113" Version="829233">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="102224" Version="862340">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13339" Version="134468" />
+      </Player1>
+      <Player2 No="216832" AntiDopingCourseCompleteDate="2026-02-26" BeachAgreementDate="2025-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Francisco" FirstName="Lerry John" LastName="Francisco" Version="1662214">
+        <Courses NbItems="3">
+          <CourseAttender No="75850" Version="835972">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="75851" Version="835973">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="102196" Version="862312">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13504" Version="144314" />
+      </Player2>
+    </BeachTeam>
+    <BeachTeam EntryPoints="" FederationCode="PHI" FederationRankingPoints="" No="3177955" NoPlayer1="173235" NoPlayer2="216831" PositionInDispatch="" PositionInEntry="" PositionInMainDraw="" PositionInQualification="" PositionInQuota="" PositionInReserve="" QualificationPoints="" SeedTechnicalPoints="" TechnicalPoints="" Type="0" EntryPoints1="" EntryPoints2="" IsInConfederationQuota="0" IsInFederationQuota="0" IsInMainDraw="0" IsInQualification="0" Name="Buytrago/Rosales" NoShirt1="1" NoShirt2="2" Status="0" TechnicalPoints1="" TechnicalPoints2="" Version="4333888">
+      <Player1 No="173235" AntiDopingCourseCompleteDate="2026-02-26" BeachAgreementDate="2026-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2026-12-31" EligibilityVerifiedAt="2025-09-11T15:43:31Z" EligibilityVerifiedBy="22646" TeamName="Buytrago" FirstName="James" LastName="Buytrago" Version="1663011">
+        <Courses NbItems="4">
+          <CourseAttender No="4206" Version="4208">
+            <Course No="1" CertificateValidUntil="2021-12-31" Type="1" Version="5" />
+          </CourseAttender>
+          <CourseAttender No="47169" Version="807226">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="69101" Version="829221">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="102199" Version="862315">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="13384" Version="144938" />
+        <EligibilityVerifyUser Username="YuCao" No="22646" Version="178630777" />
+      </Player1>
+      <Player2 No="216831" AntiDopingCourseCompleteDate="2026-02-27" BeachAgreementDate="2025-12-31" BeachAgreementDateCF="" DateHealthCertificateConfederation="" DateHealthCert="2025-12-31" EligibilityVerifiedAt="" EligibilityVerifiedBy="" TeamName="Rosales" FirstName="Ronniel" LastName="Rosales" Version="1761898">
+        <Courses NbItems="3">
+          <CourseAttender No="75830" Version="835952">
+            <Course No="3" CertificateValidUntil="2026-12-31" Type="2" Version="8" />
+          </CourseAttender>
+          <CourseAttender No="75839" Version="835961">
+            <Course No="2" CertificateValidUntil="2026-12-31" Type="1" Version="6" />
+          </CourseAttender>
+          <CourseAttender No="102225" Version="862341">
+            <Course No="8" CertificateValidUntil="2028-12-31" Type="3" Version="16" />
+          </CourseAttender>
+        </Courses>
+        <BankAccount ElectronicPaymentMethod="3" No="14104" Version="145874" />
+      </Player2>
+    </BeachTeam>
+  </BeachTeams>
+</Responses>
