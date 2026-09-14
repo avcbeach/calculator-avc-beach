@@ -94,6 +94,13 @@ with st.container(border=True):
                 parsed = load_event(tournament_code_or_no)
                 st.session_state["event"] = parsed["event"]
                 st.session_state["teams"] = parsed["teams"]
+                # Loading a (possibly different) tournament invalidates any
+                # results calculated for the previous one - clear them so
+                # the Results section doesn't keep showing stale data until
+                # "Calculate" is pressed again.
+                for k in ("entry_team_rows", "seed_team_rows", "entry_reserve_rows",
+                          "seed_reserve_rows", "entry_breakdowns", "seed_breakdowns"):
+                    st.session_state.pop(k, None)
             st.success(f"Loaded {parsed['event']['name']} — {len(parsed['teams'])} teams")
         except Exception as e:
             st.error(str(e))
