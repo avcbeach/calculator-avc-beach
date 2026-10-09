@@ -150,8 +150,16 @@ if "event" in st.session_state:
     with st.container(border=True):
         st.subheader("2. Cutoff dates")
         c1, c2 = st.columns(2)
-        entry_cutoff = c1.date_input("Entry Point cutoff date", value=default_event_date - timedelta(days=35))
-        seed_cutoff = c2.date_input("Seeding Point cutoff date", value=default_event_date - timedelta(days=1))
+        # Keying these to the event code forces Streamlit to treat them as
+        # brand-new widgets (with the fresh default) whenever you switch to
+        # a different tournament, instead of keeping whatever date was
+        # typed in for the previous one.
+        entry_cutoff = c1.date_input("Entry Point cutoff date",
+                                      value=default_event_date - timedelta(days=35),
+                                      key=f"entry_cutoff_{ev['code']}")
+        seed_cutoff = c2.date_input("Seeding Point cutoff date",
+                                     value=default_event_date - timedelta(days=1),
+                                     key=f"seed_cutoff_{ev['code']}")
 
         if st.button("Calculate points for all teams", type="primary", disabled=not teams_for_calc):
             with st.spinner("Fetching player histories and scoring... this can take a while for large draws"):

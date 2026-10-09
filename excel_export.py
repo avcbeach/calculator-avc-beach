@@ -17,6 +17,7 @@ from typing import List, Optional
 
 from openpyxl import Workbook
 from openpyxl.styles import Font, Alignment, Border, Side
+from openpyxl.utils import get_column_letter
 from openpyxl.drawing.image import Image as XLImage
 
 from scoring_engine import PlayerScore, SelectedResult
@@ -56,9 +57,9 @@ def _bucket_label(bucket: str, tournament_name: str) -> str:
         "national_tour": "National Tour",
         "world_championship": "World Championship",
         "olympics": "Olympic Games",
-        "multisport": "Multiple Sports Games",
+        "multisport": "Zonal Event/Multiple Sports Games",
         "continental_tour": "Continental Tour",
-        "zonal": "Zonal / Continental Cup",
+        "zonal": "Zonal Event/Multiple Sports Games",
         "championship": "Continental Championship",
         "underage": "Under-age Championship",
     }.get(bucket, bucket)
@@ -117,10 +118,20 @@ def _style_data_row(ws, row, values, ncols, bold_last=False):
         c = ws.cell(row=row, column=col, value=val)
         c.font = BOLD_BODY_FONT if (bold_last and col == ncols) else BODY_FONT
         c.border = CELL_BORDER
-        c.alignment = CENTER if col == 1 or isinstance(val, (int, float)) else LEFT
+        is_number = isinstance(val, (int, float)) or (isinstance(val, str) and val.startswith("="))
+        c.alignment = CENTER if col == 1 or is_number else LEFT
 
 
-def _write_entry_list_section(ws, start_row: int, title: str, teams: List[TeamRow]) -> int:
+def _sheet_ref(sheet_title: str, col_letter: str, row: int) -> str:
+    """Absolute cross-sheet reference, e.g. 'CHN Breakdown'!$G$12. Absolute
+    ($) so the Entry List can still be sorted in Excel without the
+    references drifting."""
+    quoted = sheet_title.replace("'", "''")
+    return f"'{quoted}'!${col_letter}${row}"
+
+
+def _write_entry_list_section(ws, start_row: int, title: str, teams: List[TeamRow],
+                               cell_map: dict) -> int:
     headers = ["Pos.", "NF", "Team Name", "Player 1", "Player 1 FIVB Points",
                "Player 1 AVC Points", "Player 2", "Player 2 FIVB Points",
                "Player 2 AVC Points", "Team Total Points"]
@@ -132,11 +143,31 @@ def _write_entry_list_section(ws, start_row: int, title: str, teams: List[TeamRo
     _style_header_row(ws, header_row, headers)
     ws.freeze_panes = ws.cell(row=header_row + 1, column=1).coordinate
 
+    def points_cell(team: TeamRow, player_name: str, side: str, static_value: int):
+        """Link to the player's total on their Breakdown tab so edits there
+        flow through; fall back to the plain number if the player has no
+        Breakdown block (shouldn't normally happen)."""
+        loc = cell_map.get((team.nf, player_name))
+        if loc is None:
+            return static_value
+        return "=" + _sheet_ref(loc["sheet"], loc[f"{side}_col"], loc[f"{side}_row"])
+
     teams_sorted = sorted(teams, key=lambda t: t.total, reverse=True)
-    r = header_row + 1
-    for i, t in enumerate(teams_sorted, start=1):
-        row_vals = [i, t.nf, t.team_name, t.player1_name, t.player1_fivb, t.player1_avc,
-                    t.player2_name, t.player2_fivb, t.player2_avc, t.total]
+    first = header_row + 1
+    last = header_row + len(teams_sorted)
+    r = first
+    for t in teams_sorted:
+        row_vals = [
+            f"=RANK(J{r},$J${first}:$J${last})",   # Pos. recalculates if totals change
+            t.nf, t.team_name,
+            t.player1_name,
+            points_cell(t, t.player1_name, "fivb", t.player1_fivb),
+            points_cell(t, t.player1_name, "avc", t.player1_avc),
+            t.player2_name,
+            points_cell(t, t.player2_name, "fivb", t.player2_fivb),
+            points_cell(t, t.player2_name, "avc", t.player2_avc),
+            f"=SUM(E{r}:F{r},H{r}:I{r})",
+        ]
         _style_data_row(ws, r, row_vals, ncols, bold_last=True)
         r += 1
     return r + 1  # next free row (with one blank line gap)
@@ -144,7 +175,9 @@ def _write_entry_list_section(ws, start_row: int, title: str, teams: List[TeamRo
 
 def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_label: str,
                             main_draw: List[TeamRow], reserve: List[TeamRow],
-                            logo_path: Optional[str] = None):
+                            logo_path: Optional[str] = None,
+                            cell_map: Optional[dict] = None):
+    cell_map = cell_map or {}
     ncols = 10
     top_row = 1
     if logo_path:
@@ -163,9 +196,9 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
     _merge_and_style(ws, top_row + 2, 1, ncols, f"Confirmed Entry List - {gender_label}'s",
                       SUBTITLE_FONT, height=20)
 
-    next_row = _write_entry_list_section(ws, top_row + 4, "Main Draw", main_draw)
+    next_row = _write_entry_list_section(ws, top_row + 4, "Main Draw", main_draw, cell_map)
     if reserve:
-        _write_entry_list_section(ws, next_row, "Reserve", reserve)
+        _write_entry_list_section(ws, next_row, "Reserve", reserve, cell_map)
 
     widths = {"A": 6, "B": 8, "C": 24, "D": 22, "E": 12, "F": 12, "G": 22, "H": 12, "I": 12, "J": 14}
     for col, width in widths.items():
@@ -173,10 +206,19 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
 
 
 def _write_side_block(ws, row: int, side_label: str, max_events: int,
-                       results: List[SelectedResult], total: int, ncols: int = 7) -> int:
+                       results: List[SelectedResult], ncols: int = 7):
+    """Writes one "<side> - Best N" table. Returns (next_row, total_row).
+
+    The Total cell is a live =SUM over the Points column, from the header
+    row down to one spare blank row. Including the header (text, ignored by
+    SUM) means a row inserted right under it is still counted; the spare
+    blank row at the bottom is where a new result can simply be typed in,
+    and inserting rows above it expands the range automatically."""
+    points_col = get_column_letter(ncols)
     _merge_and_style(ws, row, 1, ncols, f"{side_label} - Best {max_events}",
                       BOLD_BODY_FONT, align=LEFT, height=18)
     row += 1
+    header_row = row
     headers = ["Season", "Date", "Event Type", "Tournament", "Teammate", "Rank", "Points"]
     _style_header_row(ws, row, headers)
     row += 1
@@ -185,31 +227,49 @@ def _write_side_block(ws, row: int, side_label: str, max_events: int,
                     r.tournament_name, r.teammate, r.rank, r.points]
         _style_data_row(ws, row, row_vals, ncols)
         row += 1
-    c = ws.cell(row=row, column=ncols - 1, value="Total")
+    _style_data_row(ws, row, [None] * ncols, ncols)   # spare row for additions
+    spare_row = row
+    row += 1
+
+    total_row = row
+    c = ws.cell(row=total_row, column=ncols - 1, value="Total")
     c.font = BOLD_BODY_FONT
     c.alignment = Alignment(horizontal="right")
-    tc = ws.cell(row=row, column=ncols, value=total)
+    tc = ws.cell(row=total_row, column=ncols,
+                 value=f"=SUM({points_col}{header_row}:{points_col}{spare_row})")
     tc.font = BOLD_BODY_FONT
     tc.border = BOTTOM_THICK
     row += 2  # blank line after total
-    return row
+    return row, total_row
 
 
-def write_breakdown_sheet(ws, players: List[PlayerBreakdown]):
+def write_breakdown_sheet(ws, players: List[PlayerBreakdown]) -> dict:
+    """Writes every player's FIVB/AVC blocks on this sheet. Returns
+    {(federation_code, player_name): {"sheet", "fivb_col", "fivb_row",
+    "avc_col", "avc_row"}} - where each side's Total cell lives - so the
+    Entry List can link to them with formulas."""
     ncols = 7
+    points_col = get_column_letter(ncols)
+    locations = {}
     row = 1
     for pb in players:
         _merge_and_style(ws, row, 1, ncols, f"{pb.player_name} ({pb.federation_code})",
                           NAME_FONT, align=LEFT, height=22)
         row += 1
-        row = _write_side_block(ws, row, "FIVB Side", pb.max_events,
-                                 pb.score.fivb_selected, pb.score.fivb_total, ncols)
-        row = _write_side_block(ws, row, "AVC Side", pb.max_events,
-                                 pb.score.avc_selected, pb.score.avc_total, ncols)
+        row, fivb_total_row = _write_side_block(ws, row, "FIVB Side", pb.max_events,
+                                                 pb.score.fivb_selected, ncols)
+        row, avc_total_row = _write_side_block(ws, row, "AVC Side", pb.max_events,
+                                                pb.score.avc_selected, ncols)
+        locations[(pb.federation_code, pb.player_name)] = {
+            "sheet": ws.title,
+            "fivb_col": points_col, "fivb_row": fivb_total_row,
+            "avc_col": points_col, "avc_row": avc_total_row,
+        }
         row += 1  # extra gap between players
 
     for col_letter, width in [("A", 10), ("B", 12), ("C", 22), ("D", 42), ("E", 22), ("F", 8), ("G", 10)]:
         ws.column_dimensions[col_letter].width = width
+    return locations
 
 
 def _safe_sheet_name(name: str, used: set) -> str:
@@ -233,19 +293,23 @@ def build_workbook(event_title: str, event_subtitle: str, gender_label: str,
     wb = Workbook()
     ws_entry = wb.active
     ws_entry.title = "Entry List"
-    write_entry_list_sheet(ws_entry, event_title, event_subtitle, gender_label,
-                            main_draw, reserve, logo_path=logo_path)
 
     # One Breakdown tab per federation, in NF-code alphabetical order, instead
-    # of one long combined sheet.
+    # of one long combined sheet. These are written FIRST so we know where
+    # each player's totals live, then the Entry List links to them.
     by_federation: dict = {}
     for pb in players:
         by_federation.setdefault(pb.federation_code or "Unknown", []).append(pb)
 
+    cell_map: dict = {}
     used_sheet_names = {"Entry List"}
     for fed_code in sorted(by_federation.keys()):
         sheet_name = _safe_sheet_name(f"{fed_code} Breakdown", used_sheet_names)
         ws = wb.create_sheet(sheet_name)
-        write_breakdown_sheet(ws, by_federation[fed_code])
+        cell_map.update(write_breakdown_sheet(ws, by_federation[fed_code]))
 
+    write_entry_list_sheet(ws_entry, event_title, event_subtitle, gender_label,
+                            main_draw, reserve, logo_path=logo_path, cell_map=cell_map)
+
+    wb.calculation.fullCalcOnLoad = True   # make Excel compute all formulas on open
     wb.save(output_path)

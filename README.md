@@ -90,6 +90,6 @@ scoring logic without hitting VIS. Run with `python3 test_with_samples.py`.
 - `vis_parser.py` - turns VIS XML into plain Python objects (no network)
 - `classification.py` - Tournament Type/Organizer -> AVC/FIVB bucket table
 - `scoring_engine.py` - date filtering + best-N-with-caps selection
-- `excel_export.py` - writes the styled Entry List / per-federation Breakdown workbook (with optional logo)
+- `excel_export.py` - writes the Entry List / per-federation Breakdown workbook (with optional logo). Totals are live Excel formulas: each Breakdown block's Total = SUM of its Points column (header row down to a spare blank row), and the Entry List's player points / Team Total / Pos. link to those cells, so editing a Breakdown tab updates the Entry List
 - `templates.py` - scoring template storage (JSON)
 - `test_with_samples.py` / `data/` - offline sanity test (see above)
