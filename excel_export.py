@@ -232,9 +232,6 @@ def _write_side_block(ws, row: int, side_label: str, max_events: int,
     row += 1
 
     total_row = row
-    c = ws.cell(row=total_row, column=ncols - 1, value="Total")
-    c.font = BOLD_BODY_FONT
-    c.alignment = Alignment(horizontal="right")
     tc = ws.cell(row=total_row, column=ncols,
                  value=f"=SUM({points_col}{header_row}:{points_col}{spare_row})")
     tc.font = BOLD_BODY_FONT
