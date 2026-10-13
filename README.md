@@ -28,7 +28,7 @@ Pages (sidebar navigation):
 - **Signing Sheet** — generates the team signature sheet (Excel, same layout as
   the VIS BeachTeamSignaturesSheetReport): Country code (NF, e.g. AUS), team,
   players with birthdate + AVC/FIVB points + shirt no. 1/2, coach rows ("C"),
-  signature column. Points = Seeding (default, cutoff -1 day) or Entry; coaches
+  signature column. Points = Seeding (default, cutoff -1 day) or Entry; coaches (per team, several allowed)
   are typed into a small table in the page; birthdates come from VIS
   (`get_team_birthdates`, best-effort - editable if VIS doesn't return them).
 

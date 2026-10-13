@@ -43,6 +43,16 @@ def _resolve_no(code_or_no: str) -> str:
     return match["no"]
 
 
+def _team_labels(pairs):
+    """['THA | Doe/Roe', ...] one unique label per team, same order as input."""
+    out, seen = [], {}
+    for nf, name in pairs:
+        base = f"{nf} | {name}"
+        seen[base] = seen.get(base, 0) + 1
+        out.append(base if seen[base] == 1 else f"{base} ({seen[base]})")
+    return out
+
+
 def _reset_results():
     for k in ("sig_data", "sig_birth_warning", "sig_file"):
         st.session_state.pop(k, None)
@@ -133,14 +143,15 @@ with st.container(border=True):
                                  type=["png", "jpg", "jpeg"], key="sig_logo")
 
     st.markdown("**Coaches / team officials** (optional)")
-    st.caption("Add one row per coach. Each coach appears under every team of that NF. "
-               "Teams of an NF with no coach listed get one empty 'C' row to write in.")
+    st.caption("One row per coach: pick the team, then type the coach. A team can have several "
+               "coaches (add several rows); a team with none gets one empty 'C' row to write in.")
+    team_labels = _team_labels([(t.get("federation_code", ""), t["name"]) for t in teams])
     coach_df = st.data_editor(
-        [{"NF": "", "Coach name": "", "Birthdate": ""}],
+        [{"Team": "", "Coach name": "", "Birthdate": ""}],
         num_rows="dynamic", use_container_width=True, hide_index=True,
-        key=f"sig_coaches_{ev['code']}",
+        key=f"sig_coaches_{ev['code']}_{len(teams)}_{'-'.join(sorted(statuses))}",
         column_config={
-            "NF": st.column_config.TextColumn("NF", help="3-letter code, e.g. AUS", max_chars=3),
+            "Team": st.column_config.SelectboxColumn("Team", options=team_labels, width="medium"),
             "Coach name": st.column_config.TextColumn("Coach name (Lastname Firstname)"),
             "Birthdate": st.column_config.TextColumn("Birthdate (e.g. 16-Dec-1976)"),
         })
@@ -189,16 +200,17 @@ if "sig_data" in st.session_state:
         st.caption("Only the Birthdate column is editable here.")
 
         if st.button("Generate Signing Sheet Excel", type="primary", key="sig_generate"):
-            coaches_by_nf = {}
+            coaches_by_team = {}
             for r in (coach_df if isinstance(coach_df, list) else coach_df.to_dict("records")):
-                nf = str(r.get("NF") or "").strip().upper()
+                lab = str(r.get("Team") or "").strip()
                 nm = str(r.get("Coach name") or "").strip()
-                if nf and nm:
-                    coaches_by_nf.setdefault(nf, []).append(
+                if lab and nm:
+                    coaches_by_team.setdefault(lab, []).append(
                         SigPerson(nm, str(r.get("Birthdate") or "").strip()))
+            labels = _team_labels([(d["nf"], d["team"]) for d in data])
 
             sig_teams, i = [], 0
-            for d in data:
+            for d, lab in zip(data, labels):
                 ppl = []
                 for p in d["players"]:
                     e = edited[i] if isinstance(edited, list) else edited.iloc[i].to_dict()
@@ -206,7 +218,7 @@ if "sig_data" in st.session_state:
                     i += 1
                 sig_teams.append(SigTeam(
                     nf=d["nf"], team_name=d["team"], players=ppl,
-                    coaches=list(coaches_by_nf.get(d["nf"].upper(), [])),
+                    coaches=list(coaches_by_team.get(lab, [])),
                     total=sum(p.avc + p.fivb for p in ppl)))
 
             logo_path = None
