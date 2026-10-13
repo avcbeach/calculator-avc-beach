@@ -28,7 +28,7 @@ with c3:
     st.write("Get every team's points and download the Entry List + Breakdown Excel file.")
 
 st.divider()
-st.info("👈 Open **1 🧮 Calculator** in the sidebar to get started.")
+st.info("👈 Open **Calculator** (points + Excel report) or **Signing Sheet** (team signature sheet) in the sidebar to get started.")
 
 with st.expander("Active scoring template"):
     st.json(template)

@@ -119,6 +119,27 @@ def parse_tournament_list(xml_text: str) -> List[dict]:
     return out
 
 
+def parse_player_birthdates(xml_text: str) -> dict:
+    """{player_no: 'YYYY-MM-DD'} from a GetBeachTeamList response whose
+    Player1/Player2 relations carry BirthDate (name matched case-insensitively
+    in case VIS spells it 'Birthdate')."""
+    root = ET.fromstring(xml_text)
+    out = {}
+    for rel in root.iter():
+        if rel.tag not in ("Player1", "Player2", "Player"):
+            continue
+        no = rel.get("No", "")
+        raw = ""
+        for k, v in rel.attrib.items():
+            if k.lower() == "birthdate":
+                raw = v
+                break
+        d = _parse_date(raw)
+        if no and d:
+            out[no] = d.isoformat()
+    return out
+
+
 def parse_tournament_entry_list(xml_text: str) -> dict:
     """
     Parse a GetBeachTournament (single event, with embedded BeachTeams/

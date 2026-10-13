@@ -126,6 +126,22 @@ class VisClient:
         )
         return self._send_batch([event_req, team_req])
 
+    def get_team_birthdates(self, tournament_no: str) -> str:
+        """Same team list as get_tournament_entry_list but asking each player
+        relation for BirthDate. Kept as a SEPARATE call (callers wrap it in
+        try/except) because the BirthDate field name is an unverified guess -
+        if VIS rejects it, only the birthdate column is affected, never the
+        entry-list loading itself."""
+        value = str(tournament_no).strip()
+        team_req = (
+            f'<Request Type="GetBeachTeamList" Fields="No NoPlayer1 NoPlayer2">'
+            f'<Filter NoTournament="{value}"/>'
+            f'<Relation Name="Player1" Fields="No BirthDate"/>'
+            f'<Relation Name="Player2" Fields="No BirthDate"/>'
+            f'</Request>'
+        )
+        return self._send_request(team_req)
+
     def get_player_career(self, player_no: str) -> str:
         """Returns raw XML text - pass to vis_parser.parse_player_career().
 

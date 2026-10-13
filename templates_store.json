@@ -2,6 +2,15 @@
   "Standard AVC Rule (Entry/Seeding)": {
     "name": "Standard AVC Rule (Entry/Seeding)",
     "lookback_days": 365,
+    "global_cap_groups": [
+      {
+        "buckets": [
+          "multisport",
+          "zonal"
+        ],
+        "limit": 1
+      }
+    ],
     "fivb_side": {
       "max_events": 4,
       "caps": {}
@@ -9,16 +18,9 @@
     "avc_side": {
       "max_events": 4,
       "caps": {
-        "multisport": 1,
-        "zonal": 1,
         "championship": 1
       },
-      "shared_cap_groups": [
-        [
-          "multisport",
-          "zonal"
-        ]
-      ]
+      "shared_cap_groups": []
     }
   }
 }

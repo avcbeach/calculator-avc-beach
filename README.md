@@ -25,6 +25,13 @@ Pages (sidebar navigation):
 - **Calculator** — the actual tool: pick a tournament, set your own cutoff
   dates, choose a scoring template, export the Excel report.
 
+- **Signing Sheet** — generates the team signature sheet (Excel, same layout as
+  the VIS BeachTeamSignaturesSheetReport): Country code (NF, e.g. AUS), team,
+  players with birthdate + AVC/FIVB points + shirt no. 1/2, coach rows ("C"),
+  signature column. Points = Seeding (default, cutoff -1 day) or Entry; coaches
+  are typed into a small table in the page; birthdates come from VIS
+  (`get_team_birthdates`, best-effort - editable if VIS doesn't return them).
+
 ## How scoring works (`scoring_engine.py` + `classification.py`)
 
 - Each career result already carries `EarnedPointsPlayer` straight from VIS
@@ -91,5 +98,6 @@ scoring logic without hitting VIS. Run with `python3 test_with_samples.py`.
 - `classification.py` - Tournament Type/Organizer -> AVC/FIVB bucket table
 - `scoring_engine.py` - date filtering + best-N-with-caps selection
 - `excel_export.py` - writes the Entry List / per-federation Breakdown workbook (with optional logo). Totals are live Excel formulas: each Breakdown block's Total = SUM of its Points column (header row down to a spare blank row), and the Entry List's player points / Team Total / Pos. link to those cells, so editing a Breakdown tab updates the Entry List
+- `signing_export.py` - writes the Signature sheet workbook (used by pages/2_✍️_Signing_Sheet.py)
 - `templates.py` - scoring template storage (JSON)
 - `test_with_samples.py` / `data/` - offline sanity test (see above)
