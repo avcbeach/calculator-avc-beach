@@ -32,6 +32,13 @@ Pages (sidebar navigation):
   are typed into a small table in the page; birthdates come from VIS
   (`get_team_birthdates`, best-effort - editable if VIS doesn't return them).
 
+- **Referee Assignment** — upload one or more VIS "Match schedule" PDFs and get the
+  Referee Assignment Form (Excel): one "Day N" sheet per date (time slots x courts,
+  1st/2nd Referee, Scorer, Asst. Scorer, Line judge 1/2) plus a "Name List" sheet.
+  Every assignment cell is a drop-down: referees <- referee list, scorers & asst.
+  scorers <- scorer list, line judges <- line-judge list. Names can be typed in the
+  page or imported from an earlier form. Needs `pdfplumber` (in requirements.txt).
+
 ## How scoring works (`scoring_engine.py` + `classification.py`)
 
 - Each career result already carries `EarnedPointsPlayer` straight from VIS
@@ -99,5 +106,6 @@ scoring logic without hitting VIS. Run with `python3 test_with_samples.py`.
 - `scoring_engine.py` - date filtering + best-N-with-caps selection
 - `excel_export.py` - writes the Entry List / per-federation Breakdown workbook (with optional logo). Totals are live Excel formulas: each Breakdown block's Total = SUM of its Points column (header row down to a spare blank row), and the Entry List's player points / Team Total / Pos. link to those cells, so editing a Breakdown tab updates the Entry List
 - `signing_export.py` - writes the Signature sheet workbook (used by pages/2_✍️_Signing_Sheet.py)
+- `referee_export.py` - parses the match-schedule PDF and writes the Referee Assignment Form (pages/3_🏁_Referee_Assignment.py)
 - `templates.py` - scoring template storage (JSON)
 - `test_with_samples.py` / `data/` - offline sanity test (see above)
