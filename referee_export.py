@@ -12,6 +12,7 @@ No Streamlit in here, so it can be tested on its own.
 """
 
 import re
+from country_codes import excel_code
 from dataclasses import dataclass, field
 from datetime import date, datetime, time
 from typing import Dict, List, Optional
@@ -69,7 +70,7 @@ class Match:
 def _short(team: str) -> str:
     m = re.search(r"\(([A-Z]{2,3})\)\s*$", team)
     if m:
-        return m.group(1)
+        return excel_code(m.group(1))
     m = _PLACEHOLDER.match(team)
     return f"{m.group(1)} of {m.group(2)}" if m else team
 
@@ -232,7 +233,7 @@ def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]]):
             e = entries[i] if i < len(entries) else NameEntry()
             _c(ws, row, 1, i + 1, h="left")
             _c(ws, row, 2, e.name or None, h="left")
-            _c(ws, row, 3, e.country or None, h="left")
+            _c(ws, row, 3, (excel_code(e.country) if e.country else None), h="left")
             if e.sheet_name:
                 sheet_val = e.sheet_name
             elif with_country:

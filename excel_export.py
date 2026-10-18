@@ -287,6 +287,12 @@ def build_workbook(event_title: str, event_subtitle: str, gender_label: str,
                     main_draw: List[TeamRow], reserve: List[TeamRow],
                     players: List[PlayerBreakdown], output_path: str,
                     logo_path: Optional[str] = None):
+    from dataclasses import replace as _replace
+    from country_codes import excel_code
+    main_draw = [_replace(t, nf=excel_code(t.nf)) for t in main_draw]
+    reserve = [_replace(t, nf=excel_code(t.nf)) for t in reserve]
+    players = [_replace(p, federation_code=excel_code(p.federation_code)) for p in players]
+
     wb = Workbook()
     ws_entry = wb.active
     ws_entry.title = "Entry List"

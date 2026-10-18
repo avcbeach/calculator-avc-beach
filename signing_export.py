@@ -72,8 +72,9 @@ def date_range_label(start: Optional[date], end: Optional[date]) -> str:
 
 def assign_country_codes(teams: List[SigTeam]) -> List[tuple]:
     """Sort NF A-Z, then by team total desc; the code is just the NF (AUS, AUS, ...)."""
-    ordered = sorted(teams, key=lambda t: (t.nf or "~", -t.total, t.team_name))
-    return [(t.nf, t) for t in ordered]
+    from country_codes import excel_code
+    ordered = sorted(teams, key=lambda t: (excel_code(t.nf) or "~", -t.total, t.team_name))
+    return [(excel_code(t.nf), t) for t in ordered]
 
 
 def _cell(ws, row, col, value=None, *, bold=False, size=9, h="left", border=True,
@@ -131,7 +132,7 @@ def build_signing_workbook(event_title: str, subtitle_line: str, form_label: str
             pass   # a bad logo file must never block the export
 
     heads = {1: "Country\ncode", 2: "Team name", 4: "Players / Coaches", 5: "Birthdate",
-             6: "AVC\npts", 7: "FIVB\npts", 8: "Total pts", 9: "Shirt\nno.", 10: "Signatures"}
+             6: "FIVB\npts", 7: "AVC\npts", 8: "Total pts", 9: "Shirt\nno.", 10: "Signatures"}
     for col in range(1, LAST_COL + 1):
         c = _cell(ws, 8, col, heads.get(col), bold=True, color="FFFFFF",
                   h="center" if col in (1, 6, 7, 8, 9) else "left")
@@ -176,8 +177,8 @@ def build_signing_workbook(event_title: str, subtitle_line: str, form_label: str
         for i, p in enumerate(team.players, start=1):
             _cell(ws, r, 4, p.name)
             _cell(ws, r, 5, p.birthdate)
-            _cell(ws, r, 6, p.avc, h="right")
-            _cell(ws, r, 7, p.fivb, h="right")
+            _cell(ws, r, 6, p.fivb, h="right")
+            _cell(ws, r, 7, p.avc, h="right")
             _cell(ws, r, 9, str(i), h="center")
             r += 1
         for p in coaches:
