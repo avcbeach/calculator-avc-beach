@@ -185,18 +185,35 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
         # Logo on its own tall first row, centred across the whole table width
         # (like the AVC entry-list template); the titles start on row 2.
         try:
-            from openpyxl.drawing.spreadsheet_drawing import OneCellAnchor, AnchorMarker
-            from openpyxl.drawing.xdr import XDRPositiveSize2D
+            from openpyxl.drawing.spreadsheet_drawing import TwoCellAnchor, AnchorMarker
             from openpyxl.utils.units import pixels_to_EMU
             img = XLImage(logo_path)
             ratio = img.width / img.height if img.height else 1
             h_px = 120
             w_px = int(h_px * ratio)
-            total_px = sum(int(w * 7 + 5) for w in widths.values())
-            x_off = max(0, (total_px - w_px) // 2)
-            img.anchor = OneCellAnchor(
-                _from=AnchorMarker(col=0, colOff=pixels_to_EMU(x_off), row=0, rowOff=pixels_to_EMU(4)),
-                ext=XDRPositiveSize2D(pixels_to_EMU(w_px), pixels_to_EMU(h_px)))
+            # Anchor the logo to CELLS, symmetric around the exact centre of the table
+            # (the boundary between the left and right halves of the columns), so it
+            # stays centred whatever pixel width Excel gives a character.
+            px = [int(w * 7 + 5) for w in widths.values()]          # column widths in px
+            half = len(px) // 2
+            cols_left, cols_right = px[:half][::-1], px[half:]      # walking away from the centre
+            if sum(px[:half]) != sum(px[half:]):                    # table not symmetric: fall back
+                pass
+            def locate(cols, dist):
+                for i, cw in enumerate(cols):
+                    if dist <= cw:
+                        return i, dist
+                    dist -= cw
+                return len(cols) - 1, cols[-1]
+            li, ld = locate(cols_left, w_px / 2)                    # px from the left edge of that column's right side
+            ri, rd = locate(cols_right, w_px / 2)
+            from_col = half - 1 - li
+            from_off = cols_left[li] - ld
+            to_col = half + ri
+            img.anchor = TwoCellAnchor(
+                editAs="oneCell",
+                _from=AnchorMarker(col=from_col, colOff=pixels_to_EMU(int(from_off)), row=0, rowOff=pixels_to_EMU(4)),
+                to=AnchorMarker(col=to_col, colOff=pixels_to_EMU(int(rd)), row=0, rowOff=pixels_to_EMU(4 + h_px)))
             ws.add_image(img)
             ws.row_dimensions[1].height = 96
             top_row = 2
@@ -220,6 +237,7 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
     ws.page_setup.fitToWidth = 1
     ws.page_setup.fitToHeight = 0
     ws.sheet_properties.pageSetUpPr.fitToPage = True
+    ws.print_options.horizontalCentered = True
 
 
 def _write_side_block(ws, row: int, side_label: str, max_events: int,
