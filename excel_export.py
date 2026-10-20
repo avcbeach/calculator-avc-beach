@@ -180,16 +180,28 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
     cell_map = cell_map or {}
     ncols = 10
     top_row = 1
+    widths = {"A": 6, "B": 8, "C": 24, "D": 22, "E": 12, "F": 12, "G": 22, "H": 12, "I": 12, "J": 14}
     if logo_path:
+        # Logo on its own tall first row, centred across the whole table width
+        # (like the AVC entry-list template); the titles start on row 2.
         try:
+            from openpyxl.drawing.spreadsheet_drawing import OneCellAnchor, AnchorMarker
+            from openpyxl.drawing.xdr import XDRPositiveSize2D
+            from openpyxl.utils.units import pixels_to_EMU
             img = XLImage(logo_path)
-            img.height = 60
-            img.width = 60
-            ws.add_image(img, "A1")
-            ws.row_dimensions[1].height = 46
-            ws.row_dimensions[2].height = 46
+            ratio = img.width / img.height if img.height else 1
+            h_px = 120
+            w_px = int(h_px * ratio)
+            total_px = sum(int(w * 7 + 5) for w in widths.values())
+            x_off = max(0, (total_px - w_px) // 2)
+            img.anchor = OneCellAnchor(
+                _from=AnchorMarker(col=0, colOff=pixels_to_EMU(x_off), row=0, rowOff=pixels_to_EMU(4)),
+                ext=XDRPositiveSize2D(pixels_to_EMU(w_px), pixels_to_EMU(h_px)))
+            ws.add_image(img)
+            ws.row_dimensions[1].height = 96
+            top_row = 2
         except Exception:
-            pass  # bad/unsupported image file - just skip the logo, don't fail the export
+            top_row = 1   # bad/unsupported image file - skip the logo, don't fail the export
 
     _merge_and_style(ws, top_row, 1, ncols, event_title, TITLE_FONT, height=28)
     _merge_and_style(ws, top_row + 1, 1, ncols, event_subtitle, SUBTITLE_FONT, height=20)
@@ -200,9 +212,14 @@ def write_entry_list_sheet(ws, event_title: str, event_subtitle: str, gender_lab
     if reserve:
         _write_entry_list_section(ws, next_row, "Reserve", reserve, cell_map)
 
-    widths = {"A": 6, "B": 8, "C": 24, "D": 22, "E": 12, "F": 12, "G": 22, "H": 12, "I": 12, "J": 14}
     for col, width in widths.items():
         ws.column_dimensions[col].width = width
+
+    # print on one page width, landscape
+    ws.page_setup.orientation = "landscape"
+    ws.page_setup.fitToWidth = 1
+    ws.page_setup.fitToHeight = 0
+    ws.sheet_properties.pageSetUpPr.fitToPage = True
 
 
 def _write_side_block(ws, row: int, side_label: str, max_events: int,
