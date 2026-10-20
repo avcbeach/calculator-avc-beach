@@ -19,7 +19,8 @@ from scoring_engine import CareerResult
 
 _ROW = re.compile(r"^(?P<rk>\d+)?(?P<team>[^\d].*?)\s+(?P<cc>[A-Z]{3})\s+"
                   r"(?P<pts>\d[\d,]*)(?:\s+(?P<prize>\d[\d,]*))?\s*$")
-_TITLE2 = re.compile(r"^(?P<name>.+?)\s*/\s*(?P<gender>Men|Women)\b.*?(?P<end>\d{1,2}-[A-Za-z]{3}-\d{4})\s*$")
+_TITLE2 = re.compile(r"^(?P<name>.+?)\s*/\s*(?P<gender>Men|Women)\b(?P<rest>.*)$")
+_DATE = re.compile(r"(\d{1,2})-([A-Za-z]{3})-(\d{4})\s*$")
 
 
 @dataclass
@@ -52,10 +53,14 @@ def parse_ranking_pdf(file_obj) -> RankingReport:
         if m and not rep.event_name:
             rep.event_name = m.group("name").strip()
             rep.gender = m.group("gender")
-            try:
-                rep.end_date = datetime.strptime(m.group("end"), "%d-%b-%Y").date()
-            except ValueError:
-                pass
+            d = _DATE.search(m.group("rest").strip())
+            if d:   # a VIS in a Thai locale prints Buddhist years (2569) - convert
+                yr = int(d.group(3))
+                yr = yr - 543 if yr > 2400 else yr
+                try:
+                    rep.end_date = datetime.strptime(f"{d.group(1)}-{d.group(2)}-{yr}", "%d-%b-%Y").date()
+                except ValueError:
+                    pass     # unreadable date: the app falls back to matching by name
             continue
         m = _ROW.match(ln)
         if not m or "VIS, version" in ln:

@@ -209,18 +209,25 @@ def render_manual_results(client, teams: list, key: str):
         names = {c["no"]: c["name"] for c in cands}
 
         gcode = "1" if rep.gender == "Women" else "0"
-        opts = [t for t in lookup.values()
-                if t["end_main_draw"] and rep.end_date and abs((t["end_main_draw"] - rep.end_date).days) <= 120]
-        opts.sort(key=lambda t: (
-            0 if (t["name"].strip().lower() == rep.event_name.strip().lower() and t["gender"] == gcode) else 1,
-            abs((t["end_main_draw"] - rep.end_date).days)))
+        name_ok = lambda t: t["name"].strip().lower() == rep.event_name.strip().lower() and t["gender"] == gcode
+        if rep.end_date:
+            opts = [t for t in lookup.values()
+                    if t["end_main_draw"] and abs((t["end_main_draw"] - rep.end_date).days) <= 120]
+            opts.sort(key=lambda t: (0 if name_ok(t) else 1, abs((t["end_main_draw"] - rep.end_date).days)))
+        else:   # the PDF date could not be read: show same-name events first, newest first
+            opts = [t for t in lookup.values() if t["end_main_draw"]]
+            opts.sort(key=lambda t: (0 if name_ok(t) else 1, -t["end_main_draw"].toordinal()))
+            opts = opts[:60]
+            if not opts or not name_ok(opts[0]):
+                st.warning("The date in this PDF could not be read and no event has the same name - "
+                           "pick the right event below.")
         if not opts:
             st.error("Could not find this event in the VIS tournament list - load the list first.")
             return
         tour = st.selectbox("Event in VIS (gives type / organiser / date)", opts, key=f"{key}_tour_{pdf.file_id}",
                             format_func=lambda t: f"{t['code']} — {t['name']} "
                                                   f"({'W' if t['gender']=='1' else 'M'}, {t['end_main_draw']})")
-        st.write(f"**{rep.event_name} / {rep.gender}** — ended {rep.end_date}, {len(rep.rows)} teams")
+        st.write(f"**{rep.event_name} / {rep.gender}** — {len(rep.rows)} teams" + (f", ended {rep.end_date}" if rep.end_date else ""))
 
         matches = match_rows(rep.rows, cands)
         labels = {"": ""}
