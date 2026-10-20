@@ -109,3 +109,7 @@ scoring logic without hitting VIS. Run with `python3 test_with_samples.py`.
 - `referee_export.py` - parses the match-schedule PDF and writes the Referee Assignment Form (pages/3_🏁_Referee_Assignment.py)
 - `templates.py` - scoring template storage (JSON)
 - `test_with_samples.py` / `data/` - offline sanity test (see above)
+
+
+## Final Ranking PDF (events not yet in VIS)
+Calculator and Signing Sheet pages: expander "Add points from a Final Ranking PDF". Team points ÷ 2 per player; see `manual_results.py`.

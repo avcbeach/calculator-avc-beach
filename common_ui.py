@@ -157,7 +157,103 @@ def load_player_career(client, player_no: str, tournament_lookup: dict):
                 if not r.country_code:
                     r.country_code = t["country_code"]
         cache[player_no] = career
-    return cache[player_no]
+    return _with_manual(player_no, cache[player_no])
+
+
+def _with_manual(player_no: str, career: list) -> list:
+    """Career + results added from Final Ranking PDFs (kept outside the cache so
+    they can be added/removed any time). Skipped once VIS has the event itself."""
+    extra = [ev["results"][player_no] for ev in st.session_state.get("manual_events", {}).values()
+             if player_no in ev["results"]]
+    if not extra:
+        return career
+    have = {r.tournament_code for r in career}
+    return career + [r for r in extra if r.tournament_code not in have]
+
+
+def render_manual_results(client, teams: list, key: str):
+    """Expander: upload VIS 'Final Ranking' PDF(s) of events VIS has not yet
+    credited to the players; points = team points / 2 per player. Shared between
+    pages via st.session_state['manual_events']."""
+    from manual_results import parse_ranking_pdf, match_rows, build_results
+    events = st.session_state.setdefault("manual_events", {})
+    with st.expander(f"➕ Add points from a Final Ranking PDF (event not yet in VIS)"
+                     + (f" — {len(events)} added" if events else "")):
+        st.caption("Upload the VIS 'Final Ranking - Main draw' PDF. Team points are split 50/50 between "
+                   "the two players. Players are matched by name inside the teams of the entry list "
+                   "loaded above; check the table, then add. After adding, press Calculate again. "
+                   "Once VIS credits the event itself, the VIS result is used and this one is ignored.")
+        for k, ev in list(events.items()):
+            c1, c2 = st.columns([5, 1])
+            c1.write(f"✅ **{ev['label']}** — {len(ev['results'])} players")
+            if c2.button("Remove", key=f"{key}_rm_{k}"):
+                events.pop(k)
+                st.rerun()
+
+        pdf = st.file_uploader("Final Ranking PDF", type=["pdf"], key=f"{key}_pdf")
+        if pdf is None:
+            return
+        try:
+            rep = parse_ranking_pdf(pdf)
+        except Exception as e:
+            st.error(str(e))
+            return
+
+        lookup = load_tournament_lookup(client)
+        cands = []
+        for t in teams:
+            pair = (t["player1_no"], t["player2_no"])
+            for no, nm in ((t["player1_no"], t["player1_name"]), (t["player2_no"], t["player2_name"])):
+                cands.append({"no": no, "name": nm, "nf": t.get("federation_code", ""),
+                              "team": t["name"], "pair": pair})
+        names = {c["no"]: c["name"] for c in cands}
+
+        gcode = "1" if rep.gender == "Women" else "0"
+        opts = [t for t in lookup.values()
+                if t["end_main_draw"] and rep.end_date and abs((t["end_main_draw"] - rep.end_date).days) <= 120]
+        opts.sort(key=lambda t: (
+            0 if (t["name"].strip().lower() == rep.event_name.strip().lower() and t["gender"] == gcode) else 1,
+            abs((t["end_main_draw"] - rep.end_date).days)))
+        if not opts:
+            st.error("Could not find this event in the VIS tournament list - load the list first.")
+            return
+        tour = st.selectbox("Event in VIS (gives type / organiser / date)", opts, key=f"{key}_tour_{pdf.file_id}",
+                            format_func=lambda t: f"{t['code']} — {t['name']} "
+                                                  f"({'W' if t['gender']=='1' else 'M'}, {t['end_main_draw']})")
+        st.write(f"**{rep.event_name} / {rep.gender}** — ended {rep.end_date}, {len(rep.rows)} teams")
+
+        matches = match_rows(rep.rows, cands)
+        labels = {"": ""}
+        labels.update({c["no"]: f"{c['nf']} | {c['name']}" for c in cands})
+        rows = [{"Rk": m["row"].rank, "PDF team": m["row"].team, "Country": m["row"].country,
+                 "Name in PDF": m["half"], "Player": labels.get(m["player_no"], ""),
+                 "Team pts": m["row"].points, "Player pts": m["row"].points / 2}
+                for m in matches]
+        inv = {v: k for k, v in labels.items()}
+        ed = st.data_editor(
+            rows, hide_index=True, use_container_width=True, key=f"{key}_tbl_{pdf.file_id}",
+            disabled=["Rk", "PDF team", "Country", "Name in PDF", "Team pts"],
+            column_config={
+                "Player": st.column_config.SelectboxColumn("Player (entry list)", options=list(labels.values())),
+                "Player pts": st.column_config.NumberColumn("Player pts (team ÷ 2)", step=1),
+            })
+        ed = ed if isinstance(ed, list) else ed.to_dict("records")
+        n_ok = sum(1 for r in ed if r["Player"])
+        st.caption(f"{n_ok} of {len(ed)} names matched to players in this entry list. "
+                   "Unmatched names are simply not counted (those players are not in this event).")
+
+        if st.button("Add these points", type="primary", key=f"{key}_add_{pdf.file_id}", disabled=n_ok == 0):
+            for m, r in zip(matches, ed):
+                m["player_no"] = inv.get(r["Player"], "")
+                m["pts"] = r["Player pts"]
+            res = build_results(
+                matches, names, code=tour["code"], name=tour["name"], season=tour["season"],
+                end_date=tour["end_main_draw"], tournament_type=tour["type"],
+                organizer_code=tour["organizer_code"], host_country=tour["country_code"],
+                points_for=lambda m: round(m["pts"]))
+            events[f"{tour['code']}_{rep.gender}"] = {
+                "label": f"{tour['name']} ({rep.gender}, {tour['end_main_draw']})", "results": res}
+            st.rerun()
 
 
 def get_avc_country_codes(client):

@@ -156,6 +156,8 @@ with st.container(border=True):
             "Birthdate": st.column_config.TextColumn("Birthdate (e.g. 16-Dec-1976)"),
         })
 
+    common_ui.render_manual_results(client, all_teams, key="sig_manual_res")
+
     if st.button("Calculate points & prepare sheet", type="primary", disabled=not teams, key="sig_calc"):
         with st.spinner("Fetching player histories and scoring..."):
             lookup = common_ui.load_tournament_lookup(client)

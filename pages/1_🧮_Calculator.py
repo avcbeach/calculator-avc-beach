@@ -161,6 +161,8 @@ if "event" in st.session_state:
                                      value=default_event_date - timedelta(days=1),
                                      key=f"seed_cutoff_{ev['code']}")
 
+        common_ui.render_manual_results(client, teams, key="calc_manual")
+
         if st.button("Calculate points for all teams", type="primary", disabled=not teams_for_calc):
             with st.spinner("Fetching player histories and scoring... this can take a while for large draws"):
                 lookup = common_ui.load_tournament_lookup(client)
