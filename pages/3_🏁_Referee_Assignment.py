@@ -11,7 +11,8 @@ import streamlit as st
 
 import common_ui
 from referee_export import (parse_schedule_pdf, merge_schedules, read_names_from_form,
-                            build_referee_workbook, NameEntry, court_label)
+                            build_referee_workbook, NameEntry, court_label,
+                            read_names_from_any)
 
 st.set_page_config(page_title="Referee Assignment", page_icon="🏁", layout="wide")
 common_ui.inject_style()
@@ -93,13 +94,27 @@ with st.container(border=True):
     for tab, (key, label, hint) in zip(tabs, ROLES):
         with tab:
             st.caption(hint)
+            up = st.file_uploader(f"Upload a {label.lower()} list - any Excel / CSV with a Name column and a "
+                                  "Country column (replaces the table below)",
+                                  type=["xlsx", "xlsm", "csv", "txt"], key=f"ref_up_{key}")
+            if up is not None and st.session_state.get(f"ref_up_done_{key}") != up.file_id:
+                try:
+                    got = read_names_from_any(up, up.name)
+                    st.session_state["ref_names"][key] = [
+                        {"Name": e.name, "Country": e.country, "Scoresheet name": ""} for e in got]
+                    st.session_state[f"ref_up_done_{key}"] = up.file_id
+                    st.session_state[f"ref_rv_{key}"] = st.session_state.get(f"ref_rv_{key}", 0) + 1
+                    st.rerun()
+                except Exception as e:
+                    st.error(str(e))
             seed = st.session_state["ref_names"].get(key) or [{"Name": "", "Country": "", "Scoresheet name": ""}]
+            rv = st.session_state.get(f"ref_rv_{key}", 0)
             edited[key] = st.data_editor(
                 seed, num_rows="dynamic", use_container_width=True, hide_index=True,
-                key=f"ref_tbl_{key}_{ver}",
+                key=f"ref_tbl_{key}_{ver}_{rv}",
                 column_config={
                     "Name": st.column_config.TextColumn("Name", width="large"),
-                    "Country": st.column_config.TextColumn("Country", max_chars=3, width="small"),
+                    "Country": st.column_config.TextColumn("Country", max_chars=12, width="small"),
                     "Scoresheet name": st.column_config.TextColumn("Scoresheet name (optional)", width="medium"),
                 })
 

@@ -186,6 +186,71 @@ def read_names_from_form(file_obj) -> Dict[str, List[NameEntry]]:
     return result
 
 
+_NAME_HDR = ("name", "full name", "fullname", "referee", "official", "scorer", "line judge",
+             "person", "ชื่อ")
+_COUNTRY_HDR = ("country", "nf", "nation", "nationality", "federation", "noc", "cc", "team",
+                "ประเทศ")
+
+
+def _hdr(v) -> str:
+    return re.sub(r"\s+", " ", str(v or "").strip().lower())
+
+
+def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
+    """Read ANY simple list (.xlsx / .csv / .txt) that has a name and a country column.
+    The header row is searched in the first 30 rows; first+last name columns are joined;
+    without recognisable headers, column 1 = name and column 2 = country."""
+    import csv, io, warnings
+    ext = (filename or getattr(file_obj, "name", "")).lower().rsplit(".", 1)[-1]
+    rows = []
+    if ext in ("csv", "txt", "tsv"):
+        raw = file_obj.read()
+        raw = raw.decode("utf-8-sig", errors="replace") if isinstance(raw, bytes) else raw
+        dialect = csv.Sniffer().sniff(raw[:2000], delimiters=",;\t|") if raw.strip() else csv.excel
+        rows = [list(r) for r in csv.reader(io.StringIO(raw), dialect)]
+    elif ext in ("xlsx", "xlsm"):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            wb = load_workbook(file_obj, data_only=True)
+        for ws in wb.worksheets:           # first sheet that has any data
+            rows = [list(r) for r in ws.iter_rows(values_only=True)]
+            if any(any(c not in (None, "") for c in r) for r in rows):
+                break
+    else:
+        raise ValueError("Please upload an .xlsx or .csv file.")
+
+    def find(hdrs, words, exclude=()):
+        for i, h in enumerate(hdrs):
+            if any(w == h or (len(w) > 2 and w in h) for w in words) and not any(x in h for x in exclude):
+                return i
+        return None
+
+    hdr_i, ci_name, ci_country, ci_first, ci_last = None, None, None, None, None
+    for ri, r in enumerate(rows[:30]):
+        hs = [_hdr(c) for c in r]
+        n = find(hs, _NAME_HDR, exclude=("first", "last", "family", "given", "short", "scoresheet", "sheet", "surname"))
+        f, l = find(hs, ("first name", "given name", "first")), find(hs, ("last name", "family name", "surname", "last"))
+        c = find(hs, _COUNTRY_HDR)
+        if (n is not None or (f is not None and l is not None)) and c is not None:
+            hdr_i, ci_name, ci_country, ci_first, ci_last = ri, n, c, f, l
+            break
+    if hdr_i is None:
+        hdr_i, ci_name, ci_country = -1, 0, 1
+
+    out = []
+    for r in rows[hdr_i + 1:]:
+        def cell(i):
+            return str(r[i]).strip() if i is not None and i < len(r) and r[i] is not None else ""
+        name = cell(ci_name) if ci_name is not None else f"{cell(ci_last)} {cell(ci_first)}".strip()
+        if not name and ci_first is not None:
+            name = f"{cell(ci_last)} {cell(ci_first)}".strip()
+        if name and name.lower() not in ("name", "none"):
+            out.append(NameEntry(name, cell(ci_country).upper() if len(cell(ci_country)) <= 3 else cell(ci_country)))
+    if not out:
+        raise ValueError("No names found - the file needs a Name column and a Country column.")
+    return out
+
+
 # ----------------------------------------------------------------------------
 # Workbook
 # ----------------------------------------------------------------------------
@@ -242,7 +307,11 @@ def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]]):
                 sheet_val = f'=IF(B{row}="","",B{row})'
             _c(ws, row, 5, sheet_val, h="left")
             row += 1
-        ranges[key] = f"'Name List'!$E${first}:$E${row - 1}"
+        # drop-down covers only the filled names (blank spare rows are skipped) and grows
+        # automatically when a name is typed in the next free row
+        full = f"'Name List'!$E${first}:$E${row - 1}"
+        ranges[key] = (f"OFFSET('Name List'!$E${first},0,0,"
+                       f"MAX(1,COUNTIF({full},\"?*\")),1)")
         row += 2
     return ranges
 
