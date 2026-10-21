@@ -211,17 +211,19 @@ def _is_number(v) -> bool:
 def _guess_columns(body):
     """(name_col, country_col) from the cell contents of the data rows."""
     ncol = max((len(r) for r in body), default=0)
+    # rows that really hold data (not just a pre-numbered empty row)
+    nrows = max(1, sum(any(_txt(c) and not _is_number(c) for c in r) for r in body))
     best_country, best_name = None, None
     score_country, score_name = 0.0, 0.0
     for i in range(ncol):
         vals = [_txt(r[i]) for r in body if i < len(r) and _txt(r[i])]
-        if len(vals) < max(1, len(body) * 0.5):          # mostly empty column
+        if len(vals) < max(1, nrows * 0.5):          # mostly empty column
             continue
         n = len(vals)
         num = sum(_is_number(v) for v in vals) / n
         gen = sum(v.lower() in _GENDER for v in vals) / n
         code = sum(bool(re.fullmatch(r"[A-Za-z]{2,3}", v)) and v.upper() == v for v in vals) / n
-        alpha = sum(bool(re.search(r"[^\W\d_]{2,}", v)) and "@" not in v for v in vals) / n
+        alpha = sum(bool(re.search(r"[^\W\d_]{2,}|[\u0E00-\u0E7F]{2,}", v)) and "@" not in v for v in vals) / n
         if num > 0.5 or gen > 0.7:
             continue
         if code >= 0.7 and code > score_country:
@@ -233,13 +235,25 @@ def _guess_columns(body):
             sc = alpha * (0.5 + distinct) * min(avg_len, 25)
             if sc > score_name * 1.15 or best_name is None:    # leftmost wins near-ties
                 best_name, score_name = i, sc
+    if best_name is None:
+        # last resort: the column with the most text-like cells (any fill level)
+        best_txt = 0.0
+        for i in range(ncol):
+            vals = [_txt(r[i]) for r in body if i < len(r) and _txt(r[i])]
+            if not vals or i == best_country:
+                continue
+            txtlike = sum((not _is_number(v)) and v.lower() not in _GENDER and "@" not in v
+                          and not re.fullmatch(r"[A-Z]{2,3}", v) for v in vals)
+            sc = txtlike * (sum(len(v) for v in vals) / len(vals))
+            if sc > best_txt:
+                best_name, best_txt = i, sc
     if best_country is None:
         # full country names ("Qatar"): a text column with few distinct values
         for i in range(ncol):
             if i == best_name:
                 continue
             vals = [_txt(r[i]) for r in body if i < len(r) and _txt(r[i])]
-            if len(vals) >= max(1, len(body) * 0.5) and not any(_is_number(v) for v in vals) \
+            if len(vals) >= max(1, nrows * 0.5) and not any(_is_number(v) for v in vals) \
                     and all(v.lower() not in _GENDER for v in vals) \
                     and len(set(v.lower() for v in vals)) <= max(2, len(vals) * 0.6) \
                     and all("@" not in v for v in vals):
@@ -258,7 +272,10 @@ def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
     if ext in ("csv", "txt", "tsv"):
         raw = file_obj.read()
         raw = raw.decode("utf-8-sig", errors="replace") if isinstance(raw, bytes) else raw
-        dialect = csv.Sniffer().sniff(raw[:2000], delimiters=",;\t|") if raw.strip() else csv.excel
+        try:
+            dialect = csv.Sniffer().sniff(raw[:2000], delimiters=",;\t|")
+        except csv.Error:          # single column / no delimiter
+            dialect = csv.excel
         rows = [list(r) for r in csv.reader(io.StringIO(raw), dialect)]
     elif ext in ("xlsx", "xlsm"):
         with warnings.catch_warnings():
@@ -283,6 +300,8 @@ def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
         n = find(hs, _NAME_HDR, exclude=("first", "last", "family", "given", "short", "scoresheet", "sheet", "surname"))
         f, l = find(hs, ("first name", "given name", "first")), find(hs, ("last name", "family name", "surname", "last"))
         c = find(hs, _COUNTRY_HDR)
+        if n is None:   # one column holding both: "Family Name, Name" / "Last name, first name"
+            n = next((i for i, h in enumerate(hs) if h.count("name") >= 2), None)
         if (n is not None or (f is not None and l is not None)) and c is not None:
             hdr_i, ci_name, ci_country, ci_first, ci_last = ri, n, c, f, l
             break
@@ -322,8 +341,13 @@ def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
         name = cell(ci_name) if ci_name is not None else f"{cell(ci_last)} {cell(ci_first)}".strip()
         if not name and ci_first is not None:
             name = f"{cell(ci_last)} {cell(ci_first)}".strip()
+        ctry = cell(ci_country)
+        if name and not ctry:     # "Helal M. (QAT)" - country written inside the name
+            m = re.match(r"^(.*?)\s*[\(\[]\s*([A-Za-z]{2,3})\s*[\)\]]$", name)
+            if m:
+                name, ctry = m.group(1).strip(), m.group(2)
         if name and name.lower() not in ("name", "none"):
-            out.append(NameEntry(name, cell(ci_country).upper() if len(cell(ci_country)) <= 3 else cell(ci_country)))
+            out.append(NameEntry(name, ctry.upper() if len(ctry) <= 3 else ctry))
     if not out:
         raise ValueError("No names found - the file needs a Name column and a Country column.")
     return out
