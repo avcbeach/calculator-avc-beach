@@ -196,6 +196,58 @@ def _hdr(v) -> str:
     return re.sub(r"\s+", " ", str(v or "").strip().lower())
 
 
+_GENDER = {"m", "f", "w", "male", "female", "man", "woman", "men", "women"}
+
+
+def _txt(v) -> str:
+    return "" if v is None else str(v).strip()
+
+
+def _is_number(v) -> bool:
+    t = _txt(v).replace(",", "").replace(".", "", 1)
+    return bool(t) and t.isdigit()
+
+
+def _guess_columns(body):
+    """(name_col, country_col) from the cell contents of the data rows."""
+    ncol = max((len(r) for r in body), default=0)
+    best_country, best_name = None, None
+    score_country, score_name = 0.0, 0.0
+    for i in range(ncol):
+        vals = [_txt(r[i]) for r in body if i < len(r) and _txt(r[i])]
+        if len(vals) < max(1, len(body) * 0.5):          # mostly empty column
+            continue
+        n = len(vals)
+        num = sum(_is_number(v) for v in vals) / n
+        gen = sum(v.lower() in _GENDER for v in vals) / n
+        code = sum(bool(re.fullmatch(r"[A-Za-z]{2,3}", v)) and v.upper() == v for v in vals) / n
+        alpha = sum(bool(re.search(r"[^\W\d_]{2,}", v)) and "@" not in v for v in vals) / n
+        if num > 0.5 or gen > 0.7:
+            continue
+        if code >= 0.7 and code > score_country:
+            best_country, score_country = i, code
+            continue
+        distinct = len(set(v.lower() for v in vals)) / n
+        if alpha >= 0.7 and code < 0.7:
+            avg_len = sum(len(v) for v in vals) / n
+            sc = alpha * (0.5 + distinct) * min(avg_len, 25)
+            if sc > score_name * 1.15 or best_name is None:    # leftmost wins near-ties
+                best_name, score_name = i, sc
+    if best_country is None:
+        # full country names ("Qatar"): a text column with few distinct values
+        for i in range(ncol):
+            if i == best_name:
+                continue
+            vals = [_txt(r[i]) for r in body if i < len(r) and _txt(r[i])]
+            if len(vals) >= max(1, len(body) * 0.5) and not any(_is_number(v) for v in vals) \
+                    and all(v.lower() not in _GENDER for v in vals) \
+                    and len(set(v.lower() for v in vals)) <= max(2, len(vals) * 0.6) \
+                    and all("@" not in v for v in vals):
+                best_country = i
+                break
+    return best_name, best_country
+
+
 def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
     """Read ANY simple list (.xlsx / .csv / .txt) that has a name and a country column.
     The header row is searched in the first 30 rows; first+last name columns are joined;
@@ -235,7 +287,33 @@ def read_names_from_any(file_obj, filename: str = "") -> List[NameEntry]:
             hdr_i, ci_name, ci_country, ci_first, ci_last = ri, n, c, f, l
             break
     if hdr_i is None:
-        hdr_i, ci_name, ci_country = -1, 0, 1
+        # No usable header: work out the columns from what is IN them. Index numbers,
+        # gender (M/F), phone/e-mail etc. are skipped; only name + country are kept.
+        hdr_i = -1
+        body = [r for r in rows if any(c not in (None, "") for c in r)]
+        ci_name, ci_country = _guess_columns(body)
+        if ci_country is None and len(body) >= 3:      # maybe an unnamed title row spoils it
+            n2, c2 = _guess_columns(body[1:])
+            if n2 is not None and c2 is not None:
+                ci_name, ci_country = n2, c2
+                hdr_i = rows.index(body[0])
+                body = body[1:]
+        # first row is a title row (e.g. "Name | Country") if its country cell is not a code
+        # while the column is made of codes
+        if ci_country is not None and body and len(body) > 1:
+            f0 = body[0]
+            if len(_txt(f0[ci_name])) <= 1 or (ci_country < len(f0) and len(_txt(f0[ci_country])) == 1):
+                hdr_i = rows.index(f0)       # x / y / z style title row
+        if ci_country is not None and body:
+            first = body[0]
+            codes = sum(bool(re.fullmatch(r"[A-Z]{2,3}", _txt(r[ci_country]))) for r in body[1:]
+                        if ci_country < len(r))
+            if len(body) > 1 and codes >= 0.7 * (len(body) - 1) \
+                    and not re.fullmatch(r"[A-Za-z]{2,3}", _txt(first[ci_country] if ci_country < len(first) else "")):
+                hdr_i = rows.index(first)
+        if ci_name is None:
+            raise ValueError("Could not find a column of names - please add a header row "
+                             "with 'Name' and 'Country'.")
 
     out = []
     for r in rows[hdr_i + 1:]:
@@ -269,7 +347,7 @@ def _c(ws, row, col, value=None, *, bold=False, fill=None, h="center", v="center
     return cell
 
 
-def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]]):
+def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]], challenge: bool = False):
     ws = wb.create_sheet("Name List")
     ws.column_dimensions["A"].width = 4.5
     ws.column_dimensions["B"].width = 30
@@ -282,6 +360,8 @@ def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]]):
     sections = [("referees", "Referee name list", 20, True),
                 ("scorers", "Scorer name list", 10, False),
                 ("linejudges", "Line judges name list", 10, False)]
+    if challenge:
+        sections.insert(1, ("challenge", "Challenge referee name list", 10, True))
     ranges = {}
     row = 4
     for key, title, min_rows, with_country in sections:
@@ -316,8 +396,17 @@ def _write_name_sheet(wb, event_name: str, names: Dict[str, List[NameEntry]]):
     return ranges
 
 
+def assign_rows(challenge: bool = False) -> List[str]:
+    rows = ["1st Referee", "2nd Referee", "Reserve Referee"]
+    if challenge:
+        rows.append("Challenge Referee")
+    return rows + ["Scorer", "Asst. Scorer", "Line judge 1", "Line judge 2"]
+
+
 def build_referee_workbook(schedule: Schedule, names: Dict[str, List[NameEntry]],
-                           output_path: str):
+                           output_path: str, challenge_referee: bool = False):
+    ASSIGN = assign_rows(challenge_referee)
+    BLOCK = 2 + len(ASSIGN)
     wb = Workbook()
     wb.remove(wb.active)
 
@@ -327,7 +416,7 @@ def build_referee_workbook(schedule: Schedule, names: Dict[str, List[NameEntry]]
     days = sorted({m.day for m in schedule.matches})
 
     # Name List first in code (to know the ranges), moved to the end afterwards
-    ranges = _write_name_sheet(wb, schedule.event_name, names)
+    ranges = _write_name_sheet(wb, schedule.event_name, names, challenge_referee)
 
     for di, day in enumerate(days, start=1):
         ws = wb.create_sheet(f"Day {di}", index=di - 1)
@@ -354,12 +443,12 @@ def build_referee_workbook(schedule: Schedule, names: Dict[str, List[NameEntry]]
         day_matches = [m for m in schedule.matches if m.day == day]
         slots = sorted({m.time for m in day_matches})
         row = 5
-        ref_rows, score_rows, lj_rows = [], [], []
+        ref_rows, score_rows, lj_rows, ch_rows = [], [], [], []
         for tm in slots:
             slot = [m for m in day_matches if m.time == tm]
             genders = {m.gender for m in slot}
             gtxt = "/".join(g for g in ("M", "W") if g in genders) or "?"
-            top, bottom = row, row + BLOCK_ROWS - 1
+            top, bottom = row, row + BLOCK - 1
 
             ws.merge_cells(start_row=top, start_column=1, end_row=bottom, end_column=1)
             ws.merge_cells(start_row=top, start_column=2, end_row=top + 1, end_column=2)
@@ -376,11 +465,11 @@ def build_referee_workbook(schedule: Schedule, names: Dict[str, List[NameEntry]]
                     fill = PINK if m.gender == "W" else BLUE
                     _c(ws, top, 3 + ci, m.no, fill=fill)
                     _c(ws, top + 1, 3 + ci, m.label(), fill=fill)
-            for k, lab in enumerate(ASSIGN_ROWS):
+            for k, lab in enumerate(ASSIGN):
                 _c(ws, top + 2 + k, 2, lab)
-            ref_rows += [top + 2, top + 3]
-            score_rows += [top + 4, top + 5]
-            lj_rows += [top + 6, top + 7]
+                target = (ch_rows if lab.startswith("Challenge") else ref_rows if "Referee" in lab
+                          else score_rows if "corer" in lab else lj_rows)
+                target.append(top + 2 + k)
             row = bottom + 1
 
         def apply_dv(rows, rng):
@@ -393,6 +482,8 @@ def build_referee_workbook(schedule: Schedule, names: Dict[str, List[NameEntry]]
                 dv.add(f"C{r}:{chr(ord('C') + ncourt - 1)}{r}")
 
         apply_dv(ref_rows, ranges["referees"])
+        if ch_rows:
+            apply_dv(ch_rows, ranges["challenge"])
         apply_dv(score_rows, ranges["scorers"])
         apply_dv(lj_rows, ranges["linejudges"])
 

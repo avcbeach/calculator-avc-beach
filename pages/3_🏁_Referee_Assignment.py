@@ -10,7 +10,7 @@ import pathlib
 import streamlit as st
 
 import common_ui
-from referee_export import (parse_schedule_pdf, merge_schedules, read_names_from_form,
+from referee_export import (parse_schedule_pdf, merge_schedules,
                             build_referee_workbook, NameEntry, court_label,
                             read_names_from_any)
 
@@ -24,7 +24,7 @@ st.title("🏁 Referee Assignment Form")
 st.caption("Upload the match schedule PDF(s) from VIS → get the assignment sheet with drop-down lists "
            "(Referees / Scorers / Line judges).")
 
-ROLES = [("referees", "Referees", "1st & 2nd Referee drop-downs"),
+ROLES = [("referees", "Referees", "1st, 2nd & Reserve Referee drop-downs"),
          ("scorers", "Scorers", "Scorer & Asst. Scorer drop-downs"),
          ("linejudges", "Line judges", "Line judge 1 & 2 drop-downs")]
 
@@ -66,36 +66,30 @@ with st.container(border=True):
 # ------------------------------------------------------------ 2. name lists
 with st.container(border=True):
     st.subheader("2. Name lists (feed the drop-downs)")
-    st.caption("Fill in the three lists below, or import them from an earlier Referee Assignment Form. "
+    st.caption("Fill in the three lists below, or upload a list in each tab (any Excel / CSV with names and "
+               "countries - other columns such as No., gender or phone are ignored). "
                "'Scoresheet name' is the short name shown in the drop-down (e.g. Helal M.); "
                "leave it blank and the full name (+ country for referees) is used.")
+
+    challenge = st.checkbox("Include a Challenge Referee in every match block", value=False, key="ref_challenge",
+                            help="Challenge Referees are a separate group of referees with their own list "
+                                 "and drop-down. 1st Referee, 2nd Referee and Reserve Referee are always included.")
 
     if "ref_names_ver" not in st.session_state:
         st.session_state["ref_names_ver"] = 0
         st.session_state["ref_names"] = {k: [] for k, _, _ in ROLES}
 
-    imp = st.file_uploader("Optional: import names from a previous Referee Assignment Form (.xlsx)",
-                           type=["xlsx"], key="ref_import")
-    if imp is not None and st.session_state.get("ref_imported") != imp.file_id:
-        try:
-            got = read_names_from_form(imp)
-            st.session_state["ref_names"] = {
-                k: [{"Name": e.name, "Country": e.country, "Scoresheet name": e.sheet_name} for e in v]
-                for k, v in got.items()}
-            st.session_state["ref_names_ver"] += 1
-            st.session_state["ref_imported"] = imp.file_id
-            st.success("Imported: " + ", ".join(f"{len(v)} {k}" for k, v in got.items()))
-        except Exception as e:
-            st.error(str(e))
-
     ver = st.session_state["ref_names_ver"]
-    tabs = st.tabs([label for _, label, _ in ROLES])
+    roles = list(ROLES)
+    if challenge:
+        roles.insert(1, ("challenge", "Challenge referees", "Who are the Challenge Referees? Challenge Referee drop-down"))
+    tabs = st.tabs([label for _, label, _ in roles])
     edited = {}
-    for tab, (key, label, hint) in zip(tabs, ROLES):
+    for tab, (key, label, hint) in zip(tabs, roles):
         with tab:
             st.caption(hint)
-            up = st.file_uploader(f"Upload a {label.lower()} list - any Excel / CSV with a Name column and a "
-                                  "Country column (replaces the table below)",
+            up = st.file_uploader(f"Upload a {label.lower()} list (Excel / CSV with names and countries) - "
+                                  "replaces the table below",
                                   type=["xlsx", "xlsm", "csv", "txt"], key=f"ref_up_{key}")
             if up is not None and st.session_state.get(f"ref_up_done_{key}") != up.file_id:
                 try:
@@ -134,10 +128,14 @@ def _entries(tbl):
 with st.container(border=True):
     st.subheader("3. Generate")
     names = {k: _entries(v) for k, v in edited.items()}
-    st.caption(" · ".join(f"{len(v)} {label.lower()}" for (k, label, _), v in zip(ROLES, names.values())))
+    labels = {k: lb for k, lb, _ in ROLES + [("challenge", "Challenge referees", "")]}
+    st.caption(" · ".join(f"{len(v)} {labels[k].lower()}" for k, v in names.items()))
+    if challenge and not names.get("challenge"):
+        st.warning("Challenge Referee is ticked but the Challenge referees list is empty - "
+                   "the drop-down will have no names.")
     if st.button("Generate Referee Assignment Excel", type="primary", disabled=schedule is None):
         out = str(pathlib.Path(tempfile.gettempdir()) / "Referee_Assignment_Form.xlsx")
-        build_referee_workbook(schedule, names, out)
+        build_referee_workbook(schedule, names, out, challenge_referee=challenge)
         with open(out, "rb") as f:
             st.session_state["ref_file"] = f.read()
     if schedule is None:
