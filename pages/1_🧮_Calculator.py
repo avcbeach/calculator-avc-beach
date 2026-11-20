@@ -11,6 +11,7 @@ from datetime import date, timedelta
 import streamlit as st
 
 import common_ui
+import hub_ui
 from scoring_engine import score_player
 from vis_parser import parse_tournament_entry_list
 from excel_export import build_workbook, TeamRow, PlayerBreakdown
@@ -52,36 +53,40 @@ def load_event(tournament_code_or_no):
 
 with st.container(border=True):
     st.subheader("1. Select tournament")
-    year_now = date.today().year
-    c1, c2, c3 = st.columns([1, 1, 2])
-    season_from = c1.number_input("From season", value=year_now - 1, step=1)
-    season_to = c2.number_input("To season", value=year_now + 1, step=1)
-    avc_only = c3.checkbox("AVC-organised events only", value=True)
-
-    if st.button("Load tournament list"):
-        with st.spinner("Fetching tournament list from VIS (pulls the full list, can take a moment)..."):
-            lookup = common_ui.load_tournament_lookup(client)
-        st.success(f"Loaded {len(lookup)} tournaments")
-
+    src = hub_ui.source_choice("calc")
     tournament_code_or_no = None
-    if "tournament_lookup" in st.session_state:
-        lookup = st.session_state["tournament_lookup"]
-        options = [
-            t for t in lookup.values()
-            if season_from <= _season_year(t["season"]) <= season_to
-            and (not avc_only or t["organizer_code"] == "AVC")
-        ]
-        options.sort(key=lambda t: t["start_main_draw"] or date.min, reverse=True)
+    if src == "hub":
+        tournament_code_or_no = hub_ui.hub_picker(client, "calc")
+    else:
+        year_now = date.today().year
+        c1, c2, c3 = st.columns([1, 1, 2])
+        season_from = c1.number_input("From season", value=year_now - 1, step=1)
+        season_to = c2.number_input("To season", value=year_now + 1, step=1)
+        avc_only = c3.checkbox("AVC-organised events only", value=True)
 
-        if options:
-            def _label(t):
-                return f"{t['code']} — {t['name']} ({t['start_main_draw']})"
+        if st.button("Load tournament list"):
+            with st.spinner("Fetching tournament list from VIS (pulls the full list, can take a moment)..."):
+                lookup = common_ui.load_tournament_lookup(client)
+            st.success(f"Loaded {len(lookup)} tournaments")
 
-            choice = st.selectbox("Tournament", options, format_func=_label)
-            tournament_code_or_no = choice["code"]
-        else:
-            st.warning("No tournaments match this filter - try widening the season range "
-                       "or unchecking 'AVC-organised only'.")
+        if "tournament_lookup" in st.session_state:
+            lookup = st.session_state["tournament_lookup"]
+            options = [
+                t for t in lookup.values()
+                if season_from <= _season_year(t["season"]) <= season_to
+                and (not avc_only or t["organizer_code"] == "AVC")
+            ]
+            options.sort(key=lambda t: t["start_main_draw"] or date.min, reverse=True)
+
+            if options:
+                def _label(t):
+                    return f"{t['code']} — {t['name']} ({t['start_main_draw']})"
+
+                choice = st.selectbox("Tournament", options, format_func=_label)
+                tournament_code_or_no = choice["code"]
+            else:
+                st.warning("No tournaments match this filter - try widening the season range "
+                           "or unchecking 'AVC-organised only'.")
 
     with st.expander("Or enter a tournament Code / No manually"):
         manual = st.text_input("Tournament No or Code")
