@@ -52,7 +52,7 @@ def _bucket_label(bucket: str, tournament_name: str) -> str:
             return "Pro Tour Futures"
         if "final" in name:
             return "Pro Tour Finals"
-        return "Pro Tour"
+        return "Pro Tour/FIVB Events"
     return {
         "national_tour": "National Tour",
         "world_championship": "World Championship",
@@ -285,6 +285,7 @@ def write_breakdown_sheet(ws, players: List[PlayerBreakdown]) -> dict:
     locations = {}
     row = 1
     for pb in players:
+        top_row = row
         _merge_and_style(ws, row, 1, ncols, f"{pb.player_name} ({pb.federation_code})",
                           NAME_FONT, align=LEFT, height=22)
         row += 1
@@ -296,6 +297,7 @@ def write_breakdown_sheet(ws, players: List[PlayerBreakdown]) -> dict:
             "sheet": ws.title,
             "fivb_col": points_col, "fivb_row": fivb_total_row,
             "avc_col": points_col, "avc_row": avc_total_row,
+            "top_row": top_row,
         }
         row += 1  # extra gap between players
 

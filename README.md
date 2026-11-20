@@ -113,3 +113,7 @@ scoring logic without hitting VIS. Run with `python3 test_with_samples.py`.
 
 ## Final Ranking PDF (events not yet in VIS)
 Calculator and Signing Sheet pages: expander "Add points from a Final Ranking PDF". Team points ÷ 2 per player; see `manual_results.py`.
+
+
+## Asian Rankings page
+`pages/4_Asian_Rankings.py`: scans every event in the lookback window, collects AVC-federation players, scores them with the sidebar template, lists every pair that played together in the window (a player with two partners appears in two pairs) and ranks pairs by the sum of both players' points. Logic in `asian_rankings.py`, Excel in `ranking_export.py`.

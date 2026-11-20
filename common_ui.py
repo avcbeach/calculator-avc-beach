@@ -146,6 +146,7 @@ def load_player_career(client, player_no: str, tournament_lookup: dict):
     """Fetch + classify-merge one player's full career. Cached per player
     number for the session so re-scoring at a different cutoff date (or
     on a different page) doesn't re-hit VIS."""
+    load_disk_cache()
     cache = st.session_state.setdefault("career_cache", {})
     if player_no not in cache:
         xml = client.get_player_career(player_no)
@@ -158,6 +159,122 @@ def load_player_career(client, player_no: str, tournament_lookup: dict):
                     r.country_code = t["country_code"]
         cache[player_no] = career
     return _with_manual(player_no, cache[player_no])
+
+
+# ---- saved copy of the downloaded VIS data (so a restart does not mean downloading again)
+import pickle, time, pathlib
+CACHE_FILE = pathlib.Path(__file__).parent / ".cache" / "vis_cache.pkl"
+CACHE_MAX_AGE_H = 24
+
+
+def load_disk_cache():
+    """Once per session: bring back player histories / scanned events saved by an earlier
+    run (if younger than CACHE_MAX_AGE_H hours). Silent when there is nothing usable."""
+    if st.session_state.get("disk_cache_checked"):
+        return
+    st.session_state["disk_cache_checked"] = True
+    try:
+        with open(CACHE_FILE, "rb") as f:
+            blob = pickle.load(f)
+        if time.time() - blob["saved_at"] > CACHE_MAX_AGE_H * 3600:
+            return
+        st.session_state.setdefault("career_cache", {}).update(
+            {k: v for k, v in blob["careers"].items() if k not in st.session_state.get("career_cache", {})})
+        st.session_state.setdefault("rk_team_cache", {}).update(blob.get("teams", {}))
+        st.session_state.setdefault("player_fed", {}).update(blob.get("feds", {}))
+        st.session_state["disk_cache_info"] = blob["saved_at"]
+    except Exception:
+        pass
+
+
+def save_disk_cache():
+    try:
+        CACHE_FILE.parent.mkdir(exist_ok=True)
+        with open(CACHE_FILE, "wb") as f:
+            pickle.dump({"saved_at": time.time(),
+                         "careers": st.session_state.get("career_cache", {}),
+                         "teams": st.session_state.get("rk_team_cache", {}),
+                         "feds": st.session_state.get("player_fed", {})}, f)
+        st.session_state["disk_cache_info"] = time.time()
+    except Exception:
+        pass        # read-only folder etc.: just work without the saved copy
+
+
+def clear_disk_cache():
+    try:
+        CACHE_FILE.unlink()
+    except Exception:
+        pass
+    for k in ("career_cache", "rk_team_cache", "player_fed", "disk_cache_info"):
+        st.session_state.pop(k, None)
+
+
+def load_careers_bulk(client, player_nos, tournament_lookup, progress=None, batch=10, workers=4):
+    """Fill the shared career cache for many players at once (batched requests, a few in
+    parallel). progress(done, total) is called from the main thread."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    load_disk_cache()
+    cache = st.session_state.setdefault("career_cache", {})
+    todo = [n for n in dict.fromkeys(player_nos) if n and n not in cache]
+    chunks = [todo[i:i + batch] for i in range(0, len(todo), batch)]
+
+    def fetch(chunk):
+        try:
+            xml = client.get_player_careers(chunk)
+            return {n: parse_player_career(xml, n) for n in chunk}
+        except Exception:                      # batch refused: one by one
+            return {n: parse_player_career(client.get_player_career(n), n) for n in chunk}
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for fut in as_completed([ex.submit(fetch, c) for c in chunks]):
+            for n, career in fut.result().items():
+                for r in career:
+                    t = tournament_lookup.get(r.tournament_code)
+                    if t:
+                        r.organizer_code = t["organizer_code"]
+                        if not r.country_code:
+                            r.country_code = t["country_code"]
+                cache[n] = career
+            done += 1
+            if progress:
+                progress(min(done * batch, len(todo)), len(todo))
+    if todo:
+        save_disk_cache()
+
+
+def load_player_federations(client, player_nos, progress=None, batch=20, workers=4) -> dict:
+    """{player_no: own federation code}, cached for the session (and in the saved copy).
+    A pair entered under one federation can hold a player of another, so a team's federation
+    is not always the player's."""
+    from concurrent.futures import ThreadPoolExecutor, as_completed
+    load_disk_cache()
+    fed = st.session_state.setdefault("player_fed", {})
+    todo = [n for n in dict.fromkeys(player_nos) if n and n not in fed]
+    chunks = [todo[i:i + batch] for i in range(0, len(todo), batch)]
+
+    def fetch(chunk):
+        try:
+            return client.get_players_federation(chunk)
+        except Exception:
+            return {}                          # keep the team's federation for these
+
+    done = 0
+    with ThreadPoolExecutor(max_workers=workers) as ex:
+        for fut in as_completed([ex.submit(fetch, c) for c in chunks]):
+            fed.update(fut.result())
+            done += 1
+            if progress:
+                progress(min(done * batch, len(todo)), len(todo))
+    if todo:
+        save_disk_cache()
+    return fed
+
+
+def get_avc_federation_codes(client):
+    if "avc_fed_codes" not in st.session_state:
+        st.session_state["avc_fed_codes"] = client.get_avc_federation_codes()
+    return st.session_state["avc_fed_codes"]
 
 
 def _with_manual(player_no: str, career: list) -> list:

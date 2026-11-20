@@ -186,3 +186,34 @@ class VisClient:
                 if c:
                     codes.add(c.upper())
         return codes
+
+    def get_avc_federation_codes(self) -> set:
+        """3-letter National Federation codes (e.g. 'QAT', 'THA') whose confederation is AVC."""
+        text = self._send_request(
+            '<Request Type="GetFederationList" Fields="Code Name ConfederationCode Country"/>')
+        import xml.etree.ElementTree as ET
+        return {(f.get("Code") or "").upper() for f in ET.fromstring(text).iter("Federation")
+                if (f.get("ConfederationCode") or "").upper() == "AVC" and f.get("Code")}
+
+    def get_players_federation(self, player_nos: list) -> dict:
+        """{player_no: 3-letter federation code} - the player's OWN federation (GetPlayer), not the
+        federation a team was entered under."""
+        reqs = [f'<Request Type="GetPlayer" No="{n}" Fields="NO FEDERATIONCODE"/>' for n in player_nos]
+        root = ET.fromstring(self._send_batch(reqs))
+        out = {}
+        for el in root.iter():
+            a = {k.lower(): v for k, v in el.attrib.items()}
+            if a.get("no") and a.get("federationcode"):
+                out[a["no"]] = a["federationcode"].strip().upper()
+        return out
+
+    def get_player_careers(self, player_nos: list) -> str:
+        """Several players' team histories in ONE call (same GetBeachTeamList request as
+        get_player_career, repeated). parse_player_career(xml, no) picks each player's rows."""
+        fields = ('NoPlayer1 NoPlayer2 Player1FirstName Player1LastName Player2FirstName '
+                  'Player2LastName TournamentCode TournamentName TournamentSeason '
+                  'TournamentEndDateMainDraw TournamentType Rank EarnedPointsPlayer CountryCode Status')
+        reqs = [f'<Request Type="GetBeachTeamList" Fields="{fields}"><Filter NoPlayer="{n}"/></Request>'
+                for n in player_nos]
+        return self._send_batch(reqs)
+
