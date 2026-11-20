@@ -74,6 +74,19 @@ def _gh_config():
         return None
 
 
+def _pg_config():
+    """(url, key) from Streamlit secrets [playground] (AVC's own server), or None."""
+    try:
+        g = st.secrets["playground"]
+        return str(g["url"]).strip(), str(g["key"]).strip()
+    except Exception:
+        return None
+
+
+def _can_publish():
+    return bool(_pg_config() or _gh_config())
+
+
 def _site_with(res, site, title, name, rid_raw, desc, logo_file):
     """Add this ranking to `site` (a dict from extract_site, or None for a new page)."""
     import base64, re as _re
@@ -92,20 +105,28 @@ def _site_with(res, site, title, name, rid_raw, desc, logo_file):
 def _publish_to_github(res):
     """Refresh the live page: read index.html from the repo (keeps its other rankings), add this
     ranking, write index.html + how-it-works.html back. Returns a message for the user."""
-    cfg = _gh_config()
-    if not cfg:
+    pg, cfg = _pg_config(), _gh_config()
+    if not pg and not cfg:
         return None
-    import github_publish as gh
-    token, repo, branch = cfg
-    old, _ = gh.read_file(repo, "index.html", branch, token)
+    if pg:   # AVC's own server (playground) — preferred when set up
+        import site_publish as sp
+        old = sp.read_file(pg[0], pg[1], "index.html")
+    else:
+        import github_publish as gh
+        token, repo, branch = cfg
+        old, _ = gh.read_file(repo, "index.html", branch, token)
     site = extract_site(old) if old else None
     ss = st.session_state
     site = _site_with(res, site, ss.get("rk_pub_title", "AVC Beach Volleyball Rankings"),
                       ss.get("rk_pub_name", "Asian Rankings"), ss.get("rk_pub_id", "asian-rankings"),
                       ss.get("rk_pub_desc", ""), ss.get("rk_logo"))
     msg = f"Rankings as of {res['date']:%d %b %Y}"
-    a = gh.write_file(repo, "index.html", branch, token, build_site_html(site), msg)
-    b = gh.write_file(repo, "how-it-works.html", branch, token, build_explainer_html(site), msg)
+    if pg:
+        a = sp.write_file(pg[0], pg[1], "index.html", build_site_html(site))
+        b = sp.write_file(pg[0], pg[1], "how-it-works.html", build_explainer_html(site))
+    else:
+        a = gh.write_file(repo, "index.html", branch, token, build_site_html(site), msg)
+        b = gh.write_file(repo, "how-it-works.html", branch, token, build_explainer_html(site), msg)
     return "published" if (a or b) else "unchanged"
 
 
@@ -174,7 +195,7 @@ if go:
                                          "players": len(cands), "min_pts": int(min_pts),
                                          "mode": "pair" if method.startswith("By pair") else "player"}
         bar.empty(); bar2.empty()
-        if st.session_state.get("rk_autopub") and _gh_config():
+        if st.session_state.get("rk_autopub") and _can_publish():
             try:
                 st.session_state["rk_autopub_msg"] = _publish_to_github(st.session_state["rk_result"])
             except Exception as pe:
@@ -272,25 +293,25 @@ if res:
                 st.session_state["rk_pub_html"] = build_site_html(site)
                 st.session_state["rk_pub_how"] = build_explainer_html(site)
                 st.session_state["rk_pub_list"] = [f"{r['name']} (#{r['id']}, {r['date']})" for r in site["rankings"]]
-        st.markdown("**Publish to GitHub Pages directly**")
-        if _gh_config():
+        st.markdown("**Publish the public page directly**" + (" (asianvolleyball.com)" if _pg_config() else " (GitHub Pages)" if _gh_config() else ""))
+        if _can_publish():
             st.checkbox("Publish automatically after every *Build rankings*", key="rk_autopub",
                         help="Each Build then updates the live page (keeping the other rankings on it).")
-            if st.button("Publish to GitHub now", key="rk_gh_now"):
+            if st.button("Publish now", key="rk_gh_now"):
                 try:
                     st.session_state["rk_autopub_msg"] = _publish_to_github(res)
                 except Exception as pe:
                     st.session_state["rk_autopub_msg"] = f"failed: {pe}"
             m = st.session_state.get("rk_autopub_msg")
             if m == "published":
-                st.success("Live page updated on GitHub (it appears within a minute or two).")
+                st.success("Live page updated." + (" Open it: " + _pg_config()[0].rsplit("/", 1)[0] + "/" if _pg_config() else " (GitHub shows it within a minute or two)"))
             elif m == "unchanged":
                 st.info("Nothing changed - the live page already shows this ranking.")
             elif m:
-                st.error(f"GitHub publish {m}")
+                st.error(f"Publish {m}")
         else:
-            st.caption("Not set up. Add a GitHub token to the app's secrets to enable one-click / automatic "
-                       "publishing (see the steps below).")
+            st.caption("Not set up. Add the [playground] key (or a GitHub token) to the app's secrets to enable "
+                       "one-click / automatic publishing (see the steps below).")
         with st.expander("Set up automatic publishing"):
             st.markdown(
                 "1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens "
