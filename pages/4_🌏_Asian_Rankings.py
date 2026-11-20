@@ -314,12 +314,16 @@ if res:
                        "one-click / automatic publishing (see the steps below).")
         with st.expander("Set up automatic publishing"):
             st.markdown(
-                "1. On GitHub: **Settings → Developer settings → Personal access tokens → Fine-grained tokens "
-                "→ Generate**. Repository access: **only** the rankings repo. Permissions: **Contents → Read and write**.\n"
-                "2. On Streamlit Cloud: app **⋮ → Settings → Secrets**, add:\n"
-                "```toml\n[github]\ntoken = \"github_pat_xxx\"\nrepo = \"your-account/rankings\"\nbranch = \"main\"\n```\n"
-                "3. Save - the app restarts and this section shows the checkbox. For local testing put the same "
-                "text in `.streamlit/secrets.toml` (never commit it).\n\n"
+                "**AVC server (asianvolleyball.com/playground/rankings/)** — used when set up:\n"
+                "1. `publish.php` and `publish-key.php` in the `playground/rankings/` folder on the server "
+                "(the folder must be writable by the web server).\n"
+                "2. Check: opening `https://asianvolleyball.com/playground/rankings/publish.php` in a browser shows "
+                "`{\"ok\":false,\"error\":\"Invalid or missing key\"}`.\n"
+                "3. On Streamlit Cloud: app **⋮ → Settings → Secrets**, add:\n"
+                "```toml\n[playground]\nurl = \"https://asianvolleyball.com/playground/rankings/publish.php\"\n"
+                "key = \"the key inside publish-key.php\"\n```\n\n"
+                "**Or GitHub Pages:** a token with *Contents: Read and write* on the rankings repo, and "
+                "`[github]` token / repo / branch in the secrets.\n\n"
                 "Careful: with the checkbox on, every Build replaces what the public sees.")
         if st.session_state.get("rk_pub_html"):
             st.success("Rankings in this page: " + "; ".join(st.session_state["rk_pub_list"]))
